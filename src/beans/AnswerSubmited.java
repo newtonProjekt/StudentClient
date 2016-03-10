@@ -2,25 +2,25 @@ package beans;
 
 
 /**
- * The entity class that stores the usersubmited answers.
+ * Bean class that stores the user submitted answers.
  * 
  * @author Johan (jolindse@hotmail.com)
  *
  */
 
 public class AnswerSubmited {
-
 	private int id;
-	private SchoolTest test;
-	private Question question;
+	private int testId;
+	private int questionId;
 	private String answerString;
 	private boolean correctAnswer;
 	
 	public AnswerSubmited(){
 	}
 
-	public AnswerSubmited(String answerString, Question question) {
-		this.question = question;
+	public AnswerSubmited(String answerString, int testId, int questionId) {
+		this.testId = testId;
+		this.questionId = questionId;
 		this.answerString = answerString;
 		this.correctAnswer = false;
 	}
@@ -33,12 +33,20 @@ public class AnswerSubmited {
 		this.id = id;
 	}
 
-	public SchoolTest getTestId() {
-		return test;
+	public int getTestId() {
+		return testId;
 	}
 
-	public void setTestId(SchoolTest testId) {
-		this.test = test;
+	public void setTestId(int testId) {
+		this.testId = testId;
+	}
+
+	public int getQuestionId() {
+		return questionId;
+	}
+
+	public void setQuestionId(int questionId) {
+		this.questionId = questionId;
 	}
 
 	public String getAnswerString() {
@@ -57,11 +65,4 @@ public class AnswerSubmited {
 		this.correctAnswer = correctAnswer;
 	}
 
-	public Question getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(Question question) {
-		this.question = question;
-	}
 }

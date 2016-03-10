@@ -1,28 +1,44 @@
 package beans;
 
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The entity class that represents the tests. Contains the type of test and the questions in the test.
  */
-
 public class SchoolTest {
 
-	
 	private int id;
 	private String name;
+	private String subject;
+	private String dateCreated;
 	private List<Question> questions;
-	
+	private int testTime;
+
 	public SchoolTest(){
-		questions = new ArrayList<Question>();
+		questions = new ArrayList<>();
 	}
 
 	public SchoolTest(String name){
 		this.name = name;
-		questions = new ArrayList<Question>();
+		questions = new ArrayList<>();
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(String dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 
 	public int getId() {
@@ -55,5 +71,13 @@ public class SchoolTest {
 
 	public void removeQuestion(Question currQuestion){
 		questions.remove(currQuestion);
+	}
+
+	public int getTestTime() {
+		return testTime;
+	}
+
+	public void setTestTime(int testTime) {
+		this.testTime = testTime;
 	}
 }

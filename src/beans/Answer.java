@@ -1,20 +1,14 @@
 package beans;
 
-/*
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 
 /**
- * Entity class for answers to test.
+ * Bean class for answers to test.
  *
  * Contains text and boolean to indicate if it's the correct answer.
  */
 
 public class Answer {
 
-	
 	private int id;
 	private String answerText;
 	private boolean correctAnswer;

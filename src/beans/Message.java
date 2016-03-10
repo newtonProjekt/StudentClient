@@ -1,6 +1,6 @@
 package beans;
 
-//import com.google.gson.Gson;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +49,8 @@ public class Message<T> {
 	 * @param currData Object
 	 */
 	public void addCommandData(T currData){
-		//Gson gson = new Gson();
-		//String cmdData = gson.toJson(currData);
-		//commandData.add(cmdData);
+		Gson gson = new Gson();
+		String cmdData = gson.toJson(currData);
+		commandData.add(cmdData);
 	}
 }

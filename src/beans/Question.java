@@ -1,23 +1,24 @@
 package beans;
 
-import beans.Answer;
+
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The entity class for questions that contains the answers refering to the tests, question type (multi or text), question
+ * Bean class for questions that contains the answers refering to the tests, question type (multi or text), question
  * text and optionally question image.
  */
 
 public class Question {
 
-   
     private int id;
     private boolean multiQuestion;
     private boolean vgQuestion;
     private int points;
     private String questionImage;
+    private Image questionImageFile;
     private String questionText;
     private List<Answer> answers;
 
@@ -112,4 +113,11 @@ public class Question {
         }
     }
 
+    public Image getQuestionImageFile() {
+        return questionImageFile;
+    }
+
+    public void setQuestionImageFile(Image questionImageFile) {
+        this.questionImageFile = questionImageFile;
+    }
 }

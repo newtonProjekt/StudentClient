@@ -1,4 +1,4 @@
-package server.beans;
+package beans;
 
 /**
  * Login bean used to send login data and optionally request available tests.
