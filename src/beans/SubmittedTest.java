@@ -1,7 +1,5 @@
 package beans;
 
-import server.datamodel.AnswerSubmited;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import beans.Answer;
+import beans.AnswerSubmited;
 import beans.MakeTest;
 import beans.Question;
 import beans.SchoolTest;
@@ -36,27 +37,34 @@ public class MainWindow extends Application {
 	//Create object of class Prov.
 	Prov p = new Prov();
 	
-	public static int currentQuestionNr=0;
+	public static int currentQuestionNr=1;
+	
+	Label lblFragaNr;
+	
+	TextArea txtAnswer;
+	
+	CheckBox[] cb;
+	
+	Button btnForra;
+	
+	BorderPane bordertop;
+	BorderPane borderbottom;
 	
 	//Create object of class Questions.
 	Question q = new Question();
 	
+	List<Question> questionList;
+	
 	//Create object of MakeTest.
 	MakeTest mt = new MakeTest();
+	
+	//Create a list of AnswerSubmitted.
+	List<AnswerSubmited> listAS = new ArrayList<>();
 	
 	//Create instance of SchoolTest.
 	SchoolTest st = new SchoolTest();
 	
-	
-	
-	//Create a Array to keep the no. of check-boxes.
-	//CheckBox cb[] = new CheckBox[3];
-	
-	
-	CheckBox cbramverk;
-	CheckBox cbscript;
-	CheckBox cbdatatyp;
-	CheckBox cbinget;
+	int nrOfQuestions = 0;
 	
 	TextArea txtQuestion;
 	Label lblTxtQuestion;
@@ -77,15 +85,16 @@ public class MainWindow extends Application {
 	// Create method to display multiple-question type in GUI.
 			public void showQuestionType() {
 				st = mt.initTest();
-				List<Question> questionList = new ArrayList<>();
+				questionList = new ArrayList<>();
 				List<Answer> answerlist = new ArrayList<Answer>();
 				questionList=st.getQuestions();
-				q=questionList.get(currentQuestionNr);
+				nrOfQuestions=questionList.size();
+				q=questionList.get(currentQuestionNr-1);
 				questionText.setText(q.getQuestionText());
 				rootFlow.getChildren().add(questionText);
 				if (q.isMultiQuestion()== true) {
 					answerlist = q.getAnswers();
-					CheckBox cb[] = new CheckBox[answerlist.size()];
+					cb = new CheckBox[answerlist.size()];
 					for (int x=0; x<answerlist.size();x++) {
 						//cb[x].setText(answerlist.get(x).getAnswerText());
 						cb[x]=new CheckBox(answerlist.get(x).getAnswerText());
@@ -93,9 +102,12 @@ public class MainWindow extends Application {
 					}
 					
 				}else {
-					TextArea txtAnswer = new TextArea();
+					txtAnswer = new TextArea();
 					rootFlow.getChildren().add(txtAnswer);
 				}
+				lblFragaNr = new Label("Fråga " + (currentQuestionNr)  + "/" + questionList.size());
+				bordertop.setMargin(lblFragaNr,new Insets (12,12,12,12));
+				bordertop.setLeft(lblFragaNr);
 				
 				//rootFlow.getChildren().addAll(cb);
 			}
@@ -114,8 +126,8 @@ public class MainWindow extends Application {
 							
 			
 		// TRY W BorderPane: To set buttons and labels to left and right.
-		BorderPane bordertop = new BorderPane();
-		BorderPane borderbottom = new BorderPane();
+		bordertop = new BorderPane();
+		borderbottom = new BorderPane();
 		rootborder.setTop(bordertop);
 		rootborder.setBottom(borderbottom);
 		
@@ -127,31 +139,24 @@ public class MainWindow extends Application {
 		// Create a label to a question 1.
 		Label lblQuestion1 = new Label("Vad är JavaFx?");
 						
-		// Create the check boxes.
-		cbramverk = new CheckBox("Ett ramverk");
-		cbscript = new CheckBox("Ett scripspråk");
-		cbdatatyp = new CheckBox("En datatyp");
-		cbinget = new CheckBox("Inga av de angivna");
-				
-		// Set label lblQuestion1 center in FlowPane.
-		//10 mars: rootFlow.getChildren().addAll(lblQuestion1, cbramverk, cbscript,
-		//10 mars: cbdatatyp, cbinget);
-		
-		//10 mars: Set the showMultiQuestion() method in flowPane.
-		//rootFlow.getChildren().addAll(showMultiquestion());
-		
-		//Set txtQuestion and lblTxtQuestion in center.
-		//FlowPane txtRootFlow = new FlowPane(Orientation.VERTICAL,10,10);
-		//txtRootFlow.setAlignment(Pos.CENTER);
-		//rootborder.setCenter(txtRootFlow);
-		//txtRootFlow.getChildren().addAll(lblTxtQuestion,txtQuestion);
-							
+								
 		// Create button: "Lämna in prov"
 		Button btnInlamning = new Button("Lämna in prov");
 		bordertop.setMargin(btnInlamning, new Insets(12,12,12,12));
 		bordertop.setRight(btnInlamning);
+		
+		//BUTTON:"LÄMNA IN PROV".
+		btnInlamning.setOnAction(new EventHandler<ActionEvent>() {
+	  		public void handle (ActionEvent ae) {
+	  			for (AnswerSubmited answerSave:listAS) {
+	  				System.out.println(answerSave.getAnswerString());
+	  			}
+	  			
+	  			
+	  				}
+		});
 				
-		// BUTTON: "Nästa"
+		// BUTTON: "NÄSTA".
 		Button btnNasta = new Button ("Nästa");
 		borderbottom.setMargin(btnNasta, new Insets(12,12,12,12));
 		borderbottom.setRight(btnNasta);
@@ -160,31 +165,67 @@ public class MainWindow extends Application {
 		btnNasta.setOnAction(new EventHandler<ActionEvent>() {
 	  		public void handle (ActionEvent ae) {
 	  			//Show the next exam-question
-	  			{
-	  	  			//primaryStage.close();
-	  	  			//Stage stage = new Stage();
-	  	  		    // Create instance of the MainWindow.java class
-	  	  			//MainWindow mw = new MainWindow();
-	  	  			//mw.start(stage);
-	  	  			//showQuestionType();
+	  			
+	  			{	questionList=st.getQuestions();
+	  				for(int i=0; i<cb.length;i++) {
+	  					if(questionList.get(currentQuestionNr-1).isMultiQuestion()) {
+	  						if(cb[i].isSelected()) {
+	  		  					AnswerSubmited as = new AnswerSubmited();
+	  		  					as.setAnswerString(cb[i].getText());
+	  		  					listAS.add(as);
+	  		  				}	
+	  					}
+	  					else {
+	  						AnswerSubmited as = new AnswerSubmited();
+		  					as.setAnswerString(txtAnswer.getText());
+		  					listAS.add(as);
+		  					
+	  					}	  					
+	  				
+	  			}
 	  				rootFlow.getChildren().clear();
 	  				currentQuestionNr++;
-	  				showQuestionType();
-	  	  		}
+	  				
+	  				if(currentQuestionNr==nrOfQuestions+1) {
+	  					btnNasta.setDisable(true);
+	  					lblFragaNr.setText("Sista sidan");
+	  				}
+	  				else{
+	  					showQuestionType();
+		  				lblFragaNr.setText("Fråga " + (currentQuestionNr)  + "/" + nrOfQuestions);
+	  				}
+	  				btnForra.setDisable(false);
+	  	  		}	  			
 	  			}
 	  	  		});
 		
 		// Create button: "Tillbaka"
-		Button btnForra = new Button ("Tillbaka");
+		btnForra = new Button ("Tillbaka");
 		borderbottom.setMargin(btnForra, new Insets(12,12,12,12));
 		borderbottom.setLeft(btnForra);
+		btnForra.setDisable(true);
 		
-		btnForra.set
+		//BUTTON: "TILLBAKA".
+		btnForra.setOnAction(new EventHandler<ActionEvent>() {
+	  		public void handle (ActionEvent ae) {
 	  			
-		// Create label for "Fråga 1/20".
-		Label lblFragaNr = new Label("Fråga 1/" + p.getExQuestions());
-		bordertop.setMargin(lblFragaNr,new Insets (12,12,12,12));
-		bordertop.setLeft(lblFragaNr);
+	  			{	  	  			
+	  				rootFlow.getChildren().clear();
+	  				currentQuestionNr--;
+	  				showQuestionType();
+	  				lblFragaNr.setText("Fråga " + (currentQuestionNr)  + "/" + nrOfQuestions);
+	  				if(currentQuestionNr==1) {
+	  					btnForra.setDisable(true);
+	  				}
+	  				btnNasta.setDisable(false);
+	  	  		}
+	  			}
+	  	  		});
+	  			
+		// LABEL: FRÅGA NUMMER X.
+		//Label lblFragaNr = new Label("Fråga 1/" + p.getExQuestions());
+		//bordertop.setMargin(lblFragaNr,new Insets (12,12,12,12));
+		//bordertop.setLeft(lblFragaNr);
 		
 		
 		
