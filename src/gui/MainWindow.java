@@ -1,5 +1,14 @@
 package gui;
-// THIS CLASS SHOWS THE EXAM-QUESTIONS.
+// THIS CLASS SHOWS THE EXAM-QUESTIONS-TYPES.
+
+import java.util.ArrayList;
+import java.util.List;
+
+import beans.Answer;
+import beans.MakeTest;
+import beans.Question;
+import beans.SchoolTest;
+// CREATE METHOD TO EITHER SHOW MULTIPLE OR OPEN TEXT QUESTION-TYPES.
 /**
  * Gui main class
  */
@@ -10,6 +19,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -23,6 +33,25 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class MainWindow extends Application {
+	//Create object of class Prov.
+	Prov p = new Prov();
+	
+	public static int currentQuestionNr=0;
+	
+	//Create object of class Questions.
+	Question q = new Question();
+	
+	//Create object of MakeTest.
+	MakeTest mt = new MakeTest();
+	
+	//Create instance of SchoolTest.
+	SchoolTest st = new SchoolTest();
+	
+	
+	
+	//Create a Array to keep the no. of check-boxes.
+	//CheckBox cb[] = new CheckBox[3];
+	
 	
 	CheckBox cbramverk;
 	CheckBox cbscript;
@@ -34,8 +63,44 @@ public class MainWindow extends Application {
 	
 	Label response;
 	Label selected;
-	
+	Label questionText = new Label();
 	String svar;
+	
+	FlowPane rootFlow = new FlowPane(Orientation.VERTICAL, 10, 10);
+	
+	public void setMakeTest(SchoolTest y) {
+		this.st = y;
+		
+	}
+	
+	
+	// Create method to display multiple-question type in GUI.
+			public void showQuestionType() {
+				st = mt.initTest();
+				List<Question> questionList = new ArrayList<>();
+				List<Answer> answerlist = new ArrayList<Answer>();
+				questionList=st.getQuestions();
+				q=questionList.get(currentQuestionNr);
+				questionText.setText(q.getQuestionText());
+				rootFlow.getChildren().add(questionText);
+				if (q.isMultiQuestion()== true) {
+					answerlist = q.getAnswers();
+					CheckBox cb[] = new CheckBox[answerlist.size()];
+					for (int x=0; x<answerlist.size();x++) {
+						//cb[x].setText(answerlist.get(x).getAnswerText());
+						cb[x]=new CheckBox(answerlist.get(x).getAnswerText());
+						rootFlow.getChildren().add(cb[x]);						
+					}
+					
+				}else {
+					TextArea txtAnswer = new TextArea();
+					rootFlow.getChildren().add(txtAnswer);
+				}
+				
+				//rootFlow.getChildren().addAll(cb);
+			}
+	
+	
 			
 	public void start (Stage primaryStage)  {
 		
@@ -55,7 +120,7 @@ public class MainWindow extends Application {
 		rootborder.setBottom(borderbottom);
 		
 		// To set lblQuestion1 and checkbox questions in center.
-		FlowPane rootFlow = new FlowPane(Orientation.VERTICAL, 10, 10);
+		//rootFlow = new FlowPane(Orientation.VERTICAL, 10, 10);
 		rootFlow.setAlignment(Pos.CENTER);
 		rootborder.setCenter(rootFlow);
 		
@@ -69,8 +134,11 @@ public class MainWindow extends Application {
 		cbinget = new CheckBox("Inga av de angivna");
 				
 		// Set label lblQuestion1 center in FlowPane.
-		rootFlow.getChildren().addAll(lblQuestion1, cbramverk, cbscript,
-		cbdatatyp, cbinget);
+		//10 mars: rootFlow.getChildren().addAll(lblQuestion1, cbramverk, cbscript,
+		//10 mars: cbdatatyp, cbinget);
+		
+		//10 mars: Set the showMultiQuestion() method in flowPane.
+		//rootFlow.getChildren().addAll(showMultiquestion());
 		
 		//Set txtQuestion and lblTxtQuestion in center.
 		//FlowPane txtRootFlow = new FlowPane(Orientation.VERTICAL,10,10);
@@ -82,9 +150,8 @@ public class MainWindow extends Application {
 		Button btnInlamning = new Button("Lämna in prov");
 		bordertop.setMargin(btnInlamning, new Insets(12,12,12,12));
 		bordertop.setRight(btnInlamning);
-		
-		
-		// Create button: "Nästa"
+				
+		// BUTTON: "Nästa"
 		Button btnNasta = new Button ("Nästa");
 		borderbottom.setMargin(btnNasta, new Insets(12,12,12,12));
 		borderbottom.setRight(btnNasta);
@@ -92,29 +159,54 @@ public class MainWindow extends Application {
 		// Handle the action event for btnNasta.
 		btnNasta.setOnAction(new EventHandler<ActionEvent>() {
 	  		public void handle (ActionEvent ae) {
-	  			//Show the next exam-question				
-	  		}
-	  		});
-		
-		// Create label for "Fråga 1/20".
-		Label lblFragaNr = new Label("Fråga 1/20");
-		bordertop.setMargin(lblFragaNr,new Insets (12,12,12,12));
-		bordertop.setLeft(lblFragaNr);
-
+	  			//Show the next exam-question
+	  			{
+	  	  			//primaryStage.close();
+	  	  			//Stage stage = new Stage();
+	  	  		    // Create instance of the MainWindow.java class
+	  	  			//MainWindow mw = new MainWindow();
+	  	  			//mw.start(stage);
+	  	  			//showQuestionType();
+	  				rootFlow.getChildren().clear();
+	  				currentQuestionNr++;
+	  				showQuestionType();
+	  	  		}
+	  			}
+	  	  		});
 		
 		// Create button: "Tillbaka"
 		Button btnForra = new Button ("Tillbaka");
 		borderbottom.setMargin(btnForra, new Insets(12,12,12,12));
 		borderbottom.setLeft(btnForra);
 		
+		btnForra.set
+	  			
+		// Create label for "Fråga 1/20".
+		Label lblFragaNr = new Label("Fråga 1/" + p.getExQuestions());
+		bordertop.setMargin(lblFragaNr,new Insets (12,12,12,12));
+		bordertop.setLeft(lblFragaNr);
+		
+		
+		
 		// Create a label for "Återstående tid: 27 min.".
 		Label lblTid = new Label ("Återstående tid: 27 min");
 		borderbottom.setMargin(lblTid, new Insets(12,12,12,12));
 		borderbottom.setCenter(lblTid);
-						
-		
-		
-		// Handle action events for the check boxes
+										
+		// Set the scene on the stage.
+		primaryStage.setScene(scene3);
+		primaryStage.show();	
+		}
+	
+			
+	public static void main(String[] args) {
+        Application.launch(args);
+    }
+
+	
+}
+
+//Handle action events for the check boxes
 		//cbramverk.setOnAction(new EventHandler<ActionEvent>(){
 			//public void handle (ActionEvent ae) {
 				//if(cbramverk.isSelected())
@@ -151,19 +243,3 @@ public class MainWindow extends Application {
 			//if (cbinget.isSelected()) svar = "Inga av de angivna";
 			
 			//selected.setText("Du svarade:" + svar);
-		
-		// Set the scene on the stage.
-		primaryStage.setScene(scene3);
-		primaryStage.show();	
-		}
-			
-	public static void main(String[] args) {
-        Application.launch(args);
-    }
-
-	public void setVisible(boolean b) {
-		// TODO Auto-generated method stub
-		
-	}
-
-}

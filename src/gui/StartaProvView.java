@@ -1,5 +1,8 @@
 package gui;
 
+import beans.MakeTest;
+import beans.SchoolTest;
+
 // THIS CLASS SHOWS THE EXAM SELECTIONS WHICH THE STUDENT CAN SELECT.
 
 import javafx.application.Application;
@@ -22,7 +25,12 @@ public class StartaProvView extends Application {
 		protected static final String MainWindow = null;
 
 		// Create instance of the MainWindow.java class
-		MainWindow mw = new MainWindow();
+		MainWindow mw = new MainWindow();		
+		// Create instance of Maketest.
+		MakeTest mt = new MakeTest();
+		// Create instance of SchoolTest.
+		SchoolTest st = new SchoolTest();
+		
 	
 		// "Start prov" knappen
 		Button btnStart = new Button ("Starta provet");
@@ -59,8 +67,10 @@ public void start (Stage primaryStage)  {
   			primaryStage.close();
   			Stage stage = new Stage();
   		    // Create instance of the MainWindow.java class
-  			MainWindow mw = new MainWindow();
-  			mw.start(stage); 					
+  			  MainWindow mw = new MainWindow();
+  			  mw.start(stage);
+  			  mw.showQuestionType();
+  			
   		}
   		});
 				
