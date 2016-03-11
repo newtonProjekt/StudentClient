@@ -202,13 +202,16 @@ public class MainWindow extends Application {
 	  					if(questionList.get(currentQuestionNr-1).isMultiQuestion()) {
 	  						if(cb[i].isSelected()) {
 	  		  					AnswerSubmited as = new AnswerSubmited();
+	  		  					as.setQuestionId(currentQuestionNr);
 	  		  					as.setAnswerString(cb[i].getText());
 	  		  					as.setId(currentQuestionNr);
 	  		  					listAS.add(as);
+	  		  					
 	  		  				}	
 	  					}
 	  					else {
 	  						AnswerSubmited as = new AnswerSubmited();
+	  						as.setQuestionId(currentQuestionNr);
 		  					as.setAnswerString(txtAnswer.getText());
 		  					as.setId(currentQuestionNr);
 		  					listAS.add(as);
