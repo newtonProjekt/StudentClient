@@ -15,6 +15,7 @@ public class MakeTest {
 
         SchoolTest schooltest = new SchoolTest();
         Question q1 = new Question();
+        q1.setId(1);
         q1.setQuestionText("Huvudstaden i Spanien?");
         q1.setPoints(1);
         q1.setVgQuestion(false);
@@ -35,6 +36,7 @@ public class MakeTest {
         q1.setAnswers(list);
 
         Question q2 = new Question();
+        q2.setId(2);
         q2.setQuestionText("Världens högsta berg?");
         q2.setPoints(2);
         q2.setVgQuestion(true);
@@ -55,12 +57,12 @@ public class MakeTest {
         q2.setAnswers(list2);
 
         Question q3 = new Question();
+        q3.setId(3);
         q3.setQuestionText("Världens folkrikaste land?");
         q3.setMultiQuestion(false);
         q3.setPoints(1);
         q3.setVgQuestion(false);
-        Answer a7 = new Answer();
-        a7.setAnswerText("kina");
+        
 
         List<Question> listOfQuestions = new ArrayList<Question>();
         listOfQuestions.add(q1);

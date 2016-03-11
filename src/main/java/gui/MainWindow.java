@@ -9,6 +9,7 @@ import beans.AnswerSubmited;
 import beans.MakeTest;
 import beans.Question;
 import beans.SchoolTest;
+import beans.SubmittedTest;
 // CREATE METHOD TO EITHER SHOW MULTIPLE OR OPEN TEXT QUESTION-TYPES.
 /**
  * Gui main class
@@ -40,6 +41,9 @@ public class MainWindow extends Application {
 	public static int currentQuestionNr=1;
 	
 	Label lblFragaNr;
+	
+	int testID=0;
+	
 	
 	TextArea txtAnswer;
 	
@@ -80,11 +84,11 @@ public class MainWindow extends Application {
 		this.st = y;
 		
 	}
-	
-	
+		
 	// Create method to display multiple-question type in GUI.
 			public void showQuestionType() {
 				st = mt.initTest();
+				testID=st.getId();
 				questionList = new ArrayList<>();
 				List<Answer> answerlist = new ArrayList<Answer>();
 				questionList=st.getQuestions();
@@ -98,7 +102,8 @@ public class MainWindow extends Application {
 					for (int x=0; x<answerlist.size();x++) {
 						//cb[x].setText(answerlist.get(x).getAnswerText());
 						cb[x]=new CheckBox(answerlist.get(x).getAnswerText());
-						rootFlow.getChildren().add(cb[x]);						
+						rootFlow.getChildren().add(cb[x]);	
+						
 					}
 					
 				}else {
@@ -144,12 +149,18 @@ public class MainWindow extends Application {
 		Button btnInlamning = new Button("Lämna in prov");
 		bordertop.setMargin(btnInlamning, new Insets(12,12,12,12));
 		bordertop.setRight(btnInlamning);
+		btnInlamning.setDisable(true);
 		
 		//BUTTON:"LÄMNA IN PROV".
 		btnInlamning.setOnAction(new EventHandler<ActionEvent>() {
 	  		public void handle (ActionEvent ae) {
+	  			SubmittedTest subTest = new SubmittedTest();
+	  			//Ready to send to Server.
+	  			subTest.setTestId(testID);;
+  				subTest.setAnswersSubmited(listAS);
 	  			for (AnswerSubmited answerSave:listAS) {
 	  				System.out.println(answerSave.getAnswerString());
+	  					  				
 	  			}	  				  			
 	  				}
 		});
@@ -170,23 +181,33 @@ public class MainWindow extends Application {
 	  						if(cb[i].isSelected()) {
 	  		  					AnswerSubmited as = new AnswerSubmited();
 	  		  					as.setAnswerString(cb[i].getText());
+	  		  					as.setId(currentQuestionNr);
 	  		  					listAS.add(as);
 	  		  				}	
 	  					}
 	  					else {
 	  						AnswerSubmited as = new AnswerSubmited();
 		  					as.setAnswerString(txtAnswer.getText());
+		  					as.setId(currentQuestionNr);
 		  					listAS.add(as);
-		  					
-	  					}	  					
-	  				
-	  			}
+		  					break;		  					
+	  					}	  						  				
+	  				}
 	  				rootFlow.getChildren().clear();
 	  				currentQuestionNr++;
 	  				
 	  				if(currentQuestionNr==nrOfQuestions+1) {
 	  					btnNasta.setDisable(true);
 	  					lblFragaNr.setText("Sista sidan");
+	  					btnInlamning.setDisable(false);
+	  					questionText.setText("Granskning av test:");
+	  					rootFlow.getChildren().add(questionText);
+	  					txtAnswer = new TextArea();
+						rootFlow.getChildren().add(txtAnswer);
+						for(int i=0; i<questionList.size();i++) {
+							txtAnswer.setText(txtAnswer.getText()+ (i+1)+ ")" + questionList.get(i).getQuestionText()+"\n");
+							txtAnswer.setText(txtAnswer.getText()+ listAS.get(i).getAnswerString()+ "\n");
+						}
 	  				}
 	  				else{
 	  					showQuestionType();
@@ -216,17 +237,12 @@ public class MainWindow extends Application {
 	  					btnForra.setDisable(true);
 	  				}
 	  				btnNasta.setDisable(false);
+	  				btnInlamning.setDisable(true);
 	  	  		}
 	  			}
 	  	  		});
-	  			
-		// LABEL: FRÅGA NUMMER X.
-		//Label lblFragaNr = new Label("Fråga 1/" + p.getExQuestions());
-		//bordertop.setMargin(lblFragaNr,new Insets (12,12,12,12));
-		//bordertop.setLeft(lblFragaNr);
-		
-		
-		
+	  
+			
 		// Create a label for "Återstående tid: 27 min.".
 		Label lblTid = new Label ("Återstående tid: 27 min");
 		borderbottom.setMargin(lblTid, new Insets(12,12,12,12));
@@ -245,40 +261,3 @@ public class MainWindow extends Application {
 	
 }
 
-//Handle action events for the check boxes
-		//cbramverk.setOnAction(new EventHandler<ActionEvent>(){
-			//public void handle (ActionEvent ae) {
-				//if(cbramverk.isSelected())
-					//response.setText("Du valde ramverk");
-					//else
-						//response.setText("");
-				//showAll();
-			//}
-		//});
-		
-		//cbscript.setOnAction(new EventHandler<ActionEvent>() {
-			//public void handle (ActionEvent ae) {
-				//if(cbscript.isSelected())
-					//response.setText("Du valde scriptspråk");
-				//else
-					//response.setText("");
-				//showAll();
-			//}
-		//});
-		
-		// Handle the action events for the "Starta Prov"-button.
-		//public String multiChoiceShow() {
-		//if (spv.btnStart)
-			
-		//}
-		
-														
-		// Update and show the selections.
-		//void showAll() {
-			//svar= " ";
-			//if (cbramverk.isSelected())svar = "Ett ramverk";
-			//if (cbscript.isSelected()) svar = "Ett scriptspråk";
-			//if (cbdatatyp.isSelected()) svar = "En datatyp";
-			//if (cbinget.isSelected()) svar = "Inga av de angivna";
-			
-			//selected.setText("Du svarade:" + svar);
