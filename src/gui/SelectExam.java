@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -35,7 +36,8 @@ public class SelectExam extends Application {
 		
 		Text txtNewton = new Text("Newton");
 		txtNewton.setFill(Color.WHITE);
-		txtNewton.setFont(new Font("Droid Sans, sans-serif",15));
+		txtNewton.setFont(new Font("Sans-serif, bold",30));
+		
 		
 		//Create rounded rectangle to set the Newton Label.
 		Rectangle roundRect = new Rectangle();
@@ -55,7 +57,13 @@ public class SelectExam extends Application {
 		//rootborder.setLeft(hBoxLeft);
 		//hBoxLeft.setAlignment(Pos.TOP_LEFT);
 		//hBoxLeft.getChildren().add(roundRect);
-		rootborder.getChildren().add(roundRect);
+		StackPane stackpane = new StackPane();
+		stackpane.getChildren().addAll(roundRect,txtNewton);
+		stackpane.setLayoutX(65);
+		stackpane.setLayoutY(65);
+		rootborder.getChildren().addAll(stackpane);
+				
+		//rootborder.getChildren().addAll(roundRect);
 				
 		//Change Font and text size: text1.
 		text1.setFont(new Font("Arial",20));
