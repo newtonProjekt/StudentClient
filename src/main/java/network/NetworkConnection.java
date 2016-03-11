@@ -12,8 +12,7 @@ public class NetworkConnection implements Runnable {
     private PrintWriter out;
     private CommandHandler commandHandler;
 
-    public NetworkConnection (String IPADRESS, int PORT, CommandHandler commandHandler) {
-        this.commandHandler = commandHandler;
+    public NetworkConnection (String IPADRESS, int PORT) {
         try {
             server = new Socket(IPADRESS,PORT);
             out = new PrintWriter(server.getOutputStream(),true);
@@ -21,6 +20,11 @@ public class NetworkConnection implements Runnable {
         } catch (IOException e) {
             System.out.println("NETWORKCONNECTION; Constructor: Unable to connect to server");
         }
+    }
+
+    public void setCommandHandler(CommandHandler commandHandler){
+        this.commandHandler = commandHandler;
+        commandHandler.registerServer(this);
     }
 
     public void send(String jsonData){
