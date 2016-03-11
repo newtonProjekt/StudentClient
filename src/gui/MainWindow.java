@@ -150,9 +150,7 @@ public class MainWindow extends Application {
 	  		public void handle (ActionEvent ae) {
 	  			for (AnswerSubmited answerSave:listAS) {
 	  				System.out.println(answerSave.getAnswerString());
-	  			}
-	  			
-	  			
+	  			}	  				  			
 	  				}
 		});
 				
