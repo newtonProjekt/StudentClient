@@ -15,6 +15,8 @@ import beans.SubmittedTest;
  * Gui main class
  */
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -27,6 +29,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -38,11 +41,15 @@ public class MainWindow extends Application {
 	//Create object of class Prov.
 	Prov p = new Prov();
 	
+	ToggleGroup toggleCheckBox;
+	
 	public static int currentQuestionNr=1;
 	
 	Label lblFragaNr;
 	
 	int testID=0;
+	
+	int index2 = -1;
 	
 	
 	TextArea txtAnswer;
@@ -87,6 +94,7 @@ public class MainWindow extends Application {
 		
 	// Create method to display multiple-question type in GUI.
 			public void showQuestionType() {
+				
 				st = mt.initTest();
 				testID=st.getId();
 				questionList = new ArrayList<>();
@@ -100,12 +108,26 @@ public class MainWindow extends Application {
 					answerlist = q.getAnswers();
 					cb = new CheckBox[answerlist.size()];
 					for (int x=0; x<answerlist.size();x++) {
+						index2 = x;
 						//cb[x].setText(answerlist.get(x).getAnswerText());
 						cb[x]=new CheckBox(answerlist.get(x).getAnswerText());
 						rootFlow.getChildren().add(cb[x]);	
-						
+						cb[x].setOnAction(new EventHandler<ActionEvent>() {
+						public void handle (ActionEvent ae) {
+							for(int b=0; b<cb.length;b++) {
+								if (ae.getSource()==cb[b]) {
+									for(int v = 0 ; v<cb.length ; v++){
+										if(v!=b){
+											cb[v].setSelected(false);
+										}
+									}
+								}
+								
+							}							
+						}
+						});
 					}
-					
+									
 				}else {
 					txtAnswer = new TextArea();
 					rootFlow.getChildren().add(txtAnswer);
