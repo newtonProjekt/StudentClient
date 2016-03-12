@@ -4,6 +4,7 @@ import beans.Message;
 import com.google.gson.Gson;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Johan Lindström (jolindse@hotmail.com) on 2016-03-11.
@@ -36,17 +37,8 @@ public class CommandHandler {
         switch (currMessage.getCommand()) {
 
             case "getalltests":
-                System.out.println("Hej?");
-                cmdData.forEach(test -> {
-//                    SchoolTest schoolTest = gson.fromJson(test, SchoolTest.class);
-                    System.out.println(test+"\n");
-                    //adminController.addTest(schoolTest);
-
-                });
+                Map<String,String> testList = gson.fromJson(cmdData.get(0),Map.class);
                 break;
-
-
-
         }
     }
 }
