@@ -1,5 +1,6 @@
 package logic;
 
+import beans.Login;
 import gui.LoginBox;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -11,6 +12,8 @@ import network.NetworkConnection;
  */
 public class App extends Application{
 
+	private CommandHandler ch;
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -20,7 +23,7 @@ public class App extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		// Initialize network and parsing
 		NetworkConnection nc = new NetworkConnection("127.0.0.1",3004);
-		CommandHandler ch = new CommandHandler();
+		ch = new CommandHandler();
 		nc.setCommandHandler(ch);
 		Thread networkThread = new Thread(nc);
 		networkThread.start();
@@ -31,8 +34,9 @@ public class App extends Application{
 
 	}
 
-	public boolean doLogin(String persNumber, String password){
-		return false;
+	public void doLogin(String persNumber, String password){
+		Login currLogin = new Login(persNumber,password,true);
+		ch.send("login",currLogin);
 	}
 
 }
