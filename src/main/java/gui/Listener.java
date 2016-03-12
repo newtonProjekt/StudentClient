@@ -16,7 +16,7 @@ public class Listener {
 
 				@Override
 				public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
-					if(cb)
+					//if(cb)
 					
 				}
                

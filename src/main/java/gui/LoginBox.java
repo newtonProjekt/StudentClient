@@ -1,5 +1,6 @@
 package gui;
 
+import logic.App;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -45,7 +46,7 @@ public class LoginBox extends Stage {
 	private Stage window;
 	private GridPane grid = new GridPane();
 
-	public LoginBox() {
+	public LoginBox(App controller) {
 		window = this;
 		//the loginbox is in focus, the other stages is disabled:
 		window.initModality(Modality.APPLICATION_MODAL);
@@ -84,20 +85,13 @@ public class LoginBox extends Stage {
 			Platform.exit();
 		});
 
+		// Set action to login button
+		loginButton.setOnAction((e) ->{
+			controller.doLogin(userTextField.getText(),passwordField.getText());
+		});
+
 		Scene scene = new Scene(grid);
 		window.setScene(scene);
-	}
-
-	public void loginButtonListener (EventHandler<ActionEvent> buttonListener){
-		loginButton.setOnAction(buttonListener);
-	}
-
-	public String getPasswordField() {
-		return passwordField.getText();
-	}
-
-	public String getUserTextField() {
-		return userTextField.getText();
 	}
 
 	public void setErrorLabel(String message){
