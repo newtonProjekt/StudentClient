@@ -1,13 +1,20 @@
 package gui;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableRow;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -17,10 +24,12 @@ import javafx.stage.Stage;
 public class SelectExam extends Application {
 	
 	
-	Text text1 = new Text(50, 50,"Vänligen välj ett prov:");
+	Text text1 = new Text(450, 200,"Vänligen välj ett prov:");
 	
 	//Textsträng som ska länkas till uppladdade prov från server.
-	Text text2 = new Text(50,50,"Prov i Desktopapplikationer 1");
+	Text text2 = new Text(450,230,"Prov i Desktopapplikationer 1");
+	
+	TableRow table1;
 		
 	
 	
@@ -43,28 +52,20 @@ public class SelectExam extends Application {
 		Rectangle roundRect = new Rectangle();
 		roundRect.setX(1); 
 		roundRect.setY(1); 
-		roundRect.setWidth(180); 
+		roundRect.setWidth(2800); 
 		roundRect.setHeight(120); 
 		roundRect.setArcWidth(10); 
 		roundRect.setArcHeight(20);
 		roundRect.setFill(Color.ORANGE);
-		//roundRect.setNo
 		
-		
-		
+				
 		//Set the roundRect with Newton label to upper left.
-		HBox hBoxLeft = new HBox();
-		//rootborder.setLeft(hBoxLeft);
-		//hBoxLeft.setAlignment(Pos.TOP_LEFT);
-		//hBoxLeft.getChildren().add(roundRect);
 		StackPane stackpane = new StackPane();
 		stackpane.getChildren().addAll(roundRect,txtNewton);
 		stackpane.setLayoutX(65);
 		stackpane.setLayoutY(65);
 		rootborder.getChildren().addAll(stackpane);
-				
-		//rootborder.getChildren().addAll(roundRect);
-				
+						
 		//Change Font and text size: text1.
 		text1.setFont(new Font("Arial",20));
 		text1.setFill(Color.BLACK);
@@ -73,16 +74,21 @@ public class SelectExam extends Application {
 		text2.setFont(new Font("Arial",15));
 		text2.setFill(Color.ORANGE);
 		
-		BorderPane bordercenter = new BorderPane();
-		BorderPane borderunder = new BorderPane();		
-		//Set the text1 in the upper center.
-		rootborder.setTop(bordercenter);
-		bordercenter.setMargin(text1, new Insets(100,100,100,100));
-		bordercenter.setCenter(text1);
-		//Set the text2 underneath
-		rootborder.setCenter(borderunder);
-		borderunder.setMargin(text2,new Insets (10,10,10,10));
-		borderunder.setCenter(text2);
+		// BUTTON: "AVBRYT"
+		Button btnAvbryt = new Button("Avbryt");
+		VBox vbox1 = new VBox();
+		vbox1.setPadding(new Insets(3));
+		vbox1.setMargin(btnAvbryt, new Insets(400,450,450,450));
+		vbox1.getChildren().add(btnAvbryt);
+		rootborder.setCenter(vbox1);		
+		btnAvbryt.setOnAction(new EventHandler<ActionEvent>(){
+			public void handle (ActionEvent ae){
+				primaryStage.close();
+			}
+		});
+		
+		rootborder.getChildren().addAll(text1, text2);
+		
 				
 		// Set the scene on the stage.
 		primaryStage.setScene(scene2);
