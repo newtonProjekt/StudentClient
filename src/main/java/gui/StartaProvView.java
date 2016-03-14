@@ -46,7 +46,7 @@ public void start (Stage primaryStage)  {
 		primaryStage.setFullScreen(true);
 												
 		BorderPane bordercenter = new BorderPane();
-		//Set the button "Starta prov".
+		// Set the button "Starta prov".
 		rootborder.setBottom(bordercenter);
 		bordercenter.setMargin(btnStart, new Insets (90,90,90,90));
 		bordercenter.setCenter(btnStart);
@@ -61,7 +61,7 @@ public void start (Stage primaryStage)  {
 		rootborder.setCenter(rootFlow);
 		rootFlow.getChildren().add(txtInfo);
 		
-		//BUTTON: STARTA PROV.
+		// BUTTON: STARTA PROV.
   		btnStart.setOnAction(new EventHandler<ActionEvent>() {
   		public void handle (ActionEvent ae) {
   			primaryStage.close();

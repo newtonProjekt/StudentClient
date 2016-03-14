@@ -1,4 +1,8 @@
 package gui;
+/*
+ * This SelectExam class illustrates the links of available exams in which logged in 
+ * students can choose.
+ */
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -23,16 +27,14 @@ import javafx.stage.Stage;
 
 public class SelectExam extends Application {
 	
-	
+	//Text of "Vänligen välj ett prov"
 	Text text1 = new Text(450, 200,"Vänligen välj ett prov:");
 	
 	//Textsträng som ska länkas till uppladdade prov från server.
 	Text text2 = new Text(450,230,"Prov i Desktopapplikationer 1");
 	
 	TableRow table1;
-		
-	
-	
+			
 	public void start (Stage primaryStage)  {
 		
 		// Give the stage a title.
@@ -43,11 +45,11 @@ public class SelectExam extends Application {
 		Scene scene2 = new Scene(rootborder, 750,600, Color.WHITE);
 		primaryStage.setFullScreen(true);
 		
+		//Modified text of Newton, set on the roundRect rectangle as Newton label.
 		Text txtNewton = new Text("Newton");
 		txtNewton.setFill(Color.WHITE);
 		txtNewton.setFont(new Font("Sans-serif, bold",30));
-		
-		
+				
 		//Create rounded rectangle to set the Newton Label.
 		Rectangle roundRect = new Rectangle();
 		roundRect.setX(1); 
@@ -57,8 +59,7 @@ public class SelectExam extends Application {
 		roundRect.setArcWidth(10); 
 		roundRect.setArcHeight(20);
 		roundRect.setFill(Color.ORANGE);
-		
-				
+						
 		//Set the roundRect with Newton label to upper left.
 		StackPane stackpane = new StackPane();
 		stackpane.getChildren().addAll(roundRect,txtNewton);
@@ -69,7 +70,7 @@ public class SelectExam extends Application {
 		//Change Font and text size: text1.
 		text1.setFont(new Font("Arial",20));
 		text1.setFill(Color.BLACK);
-		
+				
 		//Change Font and text size: text2.
 		text2.setFont(new Font("Arial",15));
 		text2.setFill(Color.ORANGE);

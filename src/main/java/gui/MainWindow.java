@@ -1,5 +1,5 @@
 package gui;
-// THIS CLASS SHOWS THE EXAM-QUESTIONS-TYPES.
+// The MainWindow class exhibits the question-types.
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,42 +43,53 @@ import javafx.util.Duration;
 
 public class MainWindow extends Application {
 	
-	
-	ToggleGroup toggleCheckBox;
-	
+	// To keep or control the present exam question number.	
 	public static int currentQuestionNr=1;
 	
+	// To align and display the correct exam question numbers with the correct exam questions.
 	Label lblFragaNr;
 	
+	// Contains an array of exam questions row 190: nrOfQuestions=questionList.size();
+	int nrOfQuestions = 0;
+	
+	// This object is used to keep track of the testID in showQuestionType() method below.
 	int testID=0;
 	
+	// index2 object is utilised in the showQuestionType() method to generate relevant 
+	// amount of checkboxes.
 	int index2 = -1;
-		
+	
+	// txtAnswer is used to display answers written by the student. This variable is used in showQuestionType()
+	// and the button btnNasta.
 	TextArea txtAnswer;
 	
+	// Generates new checkboxes. 
 	CheckBox[] cb;
 	
+	// Used as the button "Tillbaka'.
 	Button btnForra;
 	
+	// Setting child nodes such as the buttons i convenient layouts. 
 	BorderPane bordertop;
 	BorderPane borderbottom;
 	
-	//Create object of class Questions.
+	//Creates object of class Questions.
 	Question q = new Question();
 	
+	//Creates object of MakeTest.
+	MakeTest mt = new MakeTest();
+	
+	// Stores the questions in a list applied in showQuestionType() and initAnswerSubList().
 	List<Question> questionList;
 	
-	//Create object of MakeTest.
-	MakeTest mt = new MakeTest();
+	
 	
 	//Create a list of AnswerSubmitted.
 	List<AnswerSubmited> listAS = new ArrayList<>();
 	
 	//Create instance of SchoolTest.
 	SchoolTest st = new SchoolTest();
-	
-	int nrOfQuestions = 0;
-	
+		
 	TextArea txtQuestion;
 	Label lblTxtQuestion;
 	
@@ -91,6 +102,8 @@ public class MainWindow extends Application {
 	Timeline timeline;
 	//private static final Integer STARTTIME = 15;
 	//private Integer timeSeconds = STARTTIME;
+	
+	// Displays how much time is left.
 	Label lblTid;
 	int testTime =0;
 	
@@ -107,7 +120,7 @@ public class MainWindow extends Application {
 		
 	}
 		
-        ///////added
+        // METHOD: Initialises submitted answer-list.
         public void initAnswerSubList(){
          
                 for(int y = 0 ; y<questionList.size() ; y++){
@@ -118,6 +131,7 @@ public class MainWindow extends Application {
                
         }
         
+        // Applies the Timeline's methods in order to display the remaining exam-time once the exam has begun.
         public void countdown() {
         	 timeline = new Timeline();
              lblTid.setText("Tid kvar:  " +
@@ -155,26 +169,10 @@ public class MainWindow extends Application {
                                      }
                                  }
                              }));
-             timeline.play();
-            /* timeline.setOnFinished(new EventHandler<ActionEvent>(){
-            	 /*
-                 @Override
-                 public void handle(ActionEvent arg0) {
-                	 btnNasta.setDisable(true);
-                	 btnForra.setDisable(true);
-                	 tidVarning.setText("Nu är provtiden slut. Vänligen lämna in provet "
-                	 		+ "genom att klicka på Lämna in prov till höger");
-                	 lblTxtQuestion.setText("");
-                	 lblFragaNr.setText("");
-                	 rootFlow.getChildren().clear();
-                 }
-             }); */
-
-            
-        	
+             timeline.play();      	
         }
         
-        
+        // METHOD: To convert time to minutes and seconds.
         public String setMinSec(int timeleft) {
         	String tid = "";
         	int nrOfMin = timeleft/60;
@@ -183,7 +181,7 @@ public class MainWindow extends Application {
         	return tid;
         }
         
-	// Create method to display multiple-question type in GUI.
+	// METHOD: showQuestionType(). Create method to display multiple-question type in GUI.
 			public void showQuestionType() {                          
 				st = mt.initBigTest();
 				testID=st.getId();						
@@ -208,8 +206,7 @@ public class MainWindow extends Application {
 					answerlist = q.getAnswers();
 					cb = new CheckBox[answerlist.size()];
 					for (int x=0; x<answerlist.size();x++) {
-						index2 = x;
-						//cb[x].setText(answerlist.get(x).getAnswerText());
+						index2 = x;						
 						cb[x]=new CheckBox(answerlist.get(x).getAnswerText());
 						rootFlow.getChildren().add(cb[x]);
                                                 
@@ -238,8 +235,7 @@ public class MainWindow extends Application {
 				lblFragaNr = new Label("Fråga " + (currentQuestionNr)  + "/" + questionList.size());
 				bordertop.setMargin(lblFragaNr,new Insets (12,12,12,12));
 				bordertop.setLeft(lblFragaNr);
-                                
-                                //////added
+                                                              
                                 initListIterator++;
 				
 				tidVarning = new Label("");
@@ -252,28 +248,24 @@ public class MainWindow extends Application {
 		// Give the stage a title.
 		primaryStage.setTitle("Newtons prov");
 		BorderPane rootborder = new BorderPane();
+		
 		// Create a scene.
 		Scene scene3 = new Scene(rootborder, 750,600, Color.WHITE);
 					
 		primaryStage.setFullScreen(true);
 					
-		// TRY W BorderPane: To set buttons and labels to left and right.
+		// To set buttons and labels to left and right.
 		bordertop = new BorderPane();
 		borderbottom = new BorderPane();
 		rootborder.setTop(bordertop);
 		rootborder.setBottom(borderbottom);
 		
 		// To set lblQuestion1 and checkbox questions in center.
-		//rootFlow = new FlowPane(Orientation.VERTICAL, 10, 10);
 		rootFlow.setAlignment(Pos.CENTER);
 		rootborder.setCenter(rootFlow);
-		
-		// Create a label to a question 1.
-		Label lblQuestion1 = new Label("Vad är JavaFx?");
-														
+																
 		// Create button: "Lämna in prov"
 		btnInlamning = new Button("Lämna in prov");
-		bordertop.setMargin(btnInlamning, new Insets(12,12,12,12));
 		bordertop.setRight(btnInlamning);
 		btnInlamning.setDisable(true);
 		
@@ -299,8 +291,7 @@ public class MainWindow extends Application {
 		// Handle the action event for btnNasta.
 		btnNasta.setOnAction(new EventHandler<ActionEvent>() {
 	  		public void handle (ActionEvent ae) {
-	  			//Show the next exam-question
-	  			
+	  			//Show the next exam-question	  			
 	  			{	questionList=st.getQuestions();
 	  				for(int i=0; i<cb.length;i++) {
                                             
@@ -475,9 +466,7 @@ public class MainWindow extends Application {
 	  				rootFlow.getChildren().clear();
 	  				currentQuestionNr--;
 	  				showQuestionType();
-                                        
-                                        
-                                        
+                                                                               
 	  				lblFragaNr.setText("Fråga " + (currentQuestionNr)  + "/" + nrOfQuestions);
 	  				if(currentQuestionNr==1) {
 	  					btnForra.setDisable(true);
@@ -512,8 +501,8 @@ public class MainWindow extends Application {
 	  	  		});
 	  
 			
-		// Create a label for "Återstående tid: 27 min.".
-		lblTid = new Label ("Återstående tid: 27 min");
+		// Create a label for "Tid kvar");
+		lblTid = new Label ("");
 		borderbottom.setMargin(lblTid, new Insets(12,12,12,12));
 		borderbottom.setCenter(lblTid);
 										
