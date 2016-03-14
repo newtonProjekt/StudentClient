@@ -1,8 +1,11 @@
 package network;
 
 import beans.Message;
+import beans.SchoolTest;
 import com.google.gson.Gson;
+import logic.App;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,9 +16,10 @@ public class CommandHandler {
 
     private Gson gson = new Gson();
     private NetworkConnection server;
+    private App controller;
 
-
-    public CommandHandler() {
+    public CommandHandler(App controller) {
+        this.controller = controller;
         gson = new Gson();
     }
 
@@ -36,9 +40,20 @@ public class CommandHandler {
 
         switch (currMessage.getCommand()) {
 
-            case "getalltests":
-                Map<String,String> testList = gson.fromJson(cmdData.get(0),Map.class);
+            case "gettestlist":
+
+                List<SchoolTest> testList = gson.fromJson(cmdData.get(0),List.class);
+
+                controller.showTestBox(testList);
                 break;
+            case "loginok":
+                controller.loginOk();
+                break;
+            case "loginfailed":
+                controller.loginFailed();
+                break;
+            default:
+                // do nothing
         }
     }
 }

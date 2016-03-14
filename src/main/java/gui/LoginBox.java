@@ -1,9 +1,6 @@
 package gui;
 
-import logic.App;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -22,13 +19,17 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import logic.App;
 
 /**
  * Loginbox based on loginbox from AdminClient.
- *
+ * <p>
  * Created by Johan Lindström (jolindse@hotmail.com) on 2016-03-11.
  */
 public class LoginBox extends Stage {
+
+	private App controller;
+
 	//Components:
 	private String userNameInput;
 	private String passwordInput;
@@ -47,6 +48,7 @@ public class LoginBox extends Stage {
 	private GridPane grid = new GridPane();
 
 	public LoginBox(App controller) {
+		this.controller = controller;
 		window = this;
 		//the loginbox is in focus, the other stages is disabled:
 		window.initModality(Modality.APPLICATION_MODAL);
@@ -76,7 +78,7 @@ public class LoginBox extends Stage {
 		grid.add(userTextField, 1, 1);
 		grid.add(passwordLabel, 0, 2);
 		grid.add(passwordField, 1, 2);
-		grid.add(errorLabel,1, 4);
+		grid.add(errorLabel, 1, 4);
 		grid.add(buttonHbox, 1, 5);
 
 		//Actionlistener for cancelbutton:
@@ -86,15 +88,24 @@ public class LoginBox extends Stage {
 		});
 
 		// Set action to login button
-		loginButton.setOnAction((e) ->{
-			controller.doLogin(userTextField.getText(),passwordField.getText());
+		loginButton.setOnAction((e) -> {
+			controller.doLogin(userTextField.getText(), passwordField.getText());
 		});
 
 		Scene scene = new Scene(grid);
 		window.setScene(scene);
 	}
 
-	public void setErrorLabel(String message){
-		errorLabel.setText(message);
+	public void setErrorLabel(String message) {
+		Platform.runLater(() -> {
+			errorLabel.setText(message);
+		});
 	}
+
+	public void closeLogin(){
+		Platform.runLater(() ->{
+			window.close();
+		});
+	}
+
 }

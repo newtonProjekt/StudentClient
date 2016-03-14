@@ -32,12 +32,15 @@ public class NetworkConnection implements Runnable {
     }
 
     public void run() {
+        String logLine;
         while (!disconnect) {
             try {
                 Scanner sc = new Scanner(server.getInputStream());
 
                 while (sc.hasNextLine()) {
-                    commandHandler.parse(sc.nextLine());
+                    logLine = sc.nextLine();
+                    System.out.println("FROM SERVER "+logLine); // TEST
+                    commandHandler.parse(logLine);
                 }
 
             } catch (IOException e) {
