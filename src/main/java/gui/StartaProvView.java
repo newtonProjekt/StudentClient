@@ -61,7 +61,7 @@ public void start (Stage primaryStage)  {
 		rootborder.setCenter(rootFlow);
 		rootFlow.getChildren().add(txtInfo);
 		
-		//Handle the action event for the "Starta prov" button.
+		//BUTTON: STARTA PROV.
   		btnStart.setOnAction(new EventHandler<ActionEvent>() {
   		public void handle (ActionEvent ae) {
   			primaryStage.close();
@@ -70,6 +70,7 @@ public void start (Stage primaryStage)  {
   			  MainWindow mw = new MainWindow();
   			  mw.start(stage);
   			  mw.showQuestionType();
+  			  mw.countdown();
   			
   		}
   		});

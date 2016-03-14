@@ -53,9 +53,7 @@ public class MainWindow extends Application {
 	int testID=0;
 	
 	int index2 = -1;
-	
-	
-	
+		
 	TextArea txtAnswer;
 	
 	CheckBox[] cb;
@@ -84,19 +82,20 @@ public class MainWindow extends Application {
 	TextArea txtQuestion;
 	Label lblTxtQuestion;
 	
-	Label response;
-	Label selected;
+	Button btnInlamning;
+	Button btnNasta;
+	
 	Label questionText = new Label();
 	String svar;
 	
 	Timeline timeline;
-	private static final Integer STARTTIME = 15;
+	//private static final Integer STARTTIME = 15;
 	//private Integer timeSeconds = STARTTIME;
 	Label lblTid;
 	int testTime =0;
 	
-
-	
+	Label tidVarning;
+		
 	FlowPane rootFlow = new FlowPane(Orientation.VERTICAL, 10, 10);
         
         ///////added
@@ -116,41 +115,78 @@ public class MainWindow extends Application {
                     as.setAnswerString("");
                     listAS.add(as);
                 }
-                timeline = new Timeline();
-                lblTid.setText("Tid kvar:  " +
-                        Integer.toString(testTime));
-                timeline.setCycleCount(Timeline.INDEFINITE);
-                timeline.getKeyFrames().add(
-                        new KeyFrame(Duration.seconds(1),
-                                //new  {
-                                new EventHandler<ActionEvent>() {
-                        	
-                                    // KeyFrame event handler
-                                    public void handle(ActionEvent event) {
-                                        testTime--;
-                                        // update timerLabel
-                                        lblTid.setText("Tid kvar: " +
-                                                Integer.toString(testTime));
-                                        if (testTime <= 0) {
-                                            timeline.stop();
-                                            System.out.println("Tiden är slut");
-                                        }
-                                    }
-                                }));
-                timeline.playFromStart();        
-                    
+               
+        }
+        
+        public void countdown() {
+        	 timeline = new Timeline();
+             lblTid.setText("Tid kvar:  " +
+             		setMinSec(testTime));
+             timeline.setCycleCount(Timeline.INDEFINITE);
+             timeline.getKeyFrames().add(
+                     new KeyFrame(Duration.seconds(1),
+                             //new  {
+                             new EventHandler<ActionEvent>() {
+                     	
+                                 // KeyFrame event handler
+                                 public void handle(ActionEvent event) {
+                                     testTime--;                                    
+                                     // update timerLabel
+                                     lblTid.setText("Tid kvar: " +
+                                             setMinSec(testTime));
+                                     if(testTime == 5*60) {
+                                    	 tidVarning.setText("OBS! 5 min. kvar");
+                                     }
+                                     else if (testTime==(5*60)-10) {
+                                    	 tidVarning.setText("");
+                                     }
+                                     if (testTime <= 0) {
+                                         timeline.stop();
+                                         System.out.println("Tiden är slut");
+                                         btnNasta.setDisable(true);
+                                    	 btnForra.setDisable(true);
+                                    	 tidVarning.setText("Nu är provtiden slut. Vänligen lämna in provet "
+                                    	 		+ "genom att klicka på Lämna in prov till höger");
+                                    	 questionText.setText("");
+                                    	 lblFragaNr.setText("");
+                                    	 rootFlow.getChildren().clear();
+                                    	 btnInlamning.setDisable(false);
+                                    	 
+                                     }
+                                 }
+                             }));
+             timeline.play();
+            /* timeline.setOnFinished(new EventHandler<ActionEvent>(){
+            	 /*
+                 @Override
+                 public void handle(ActionEvent arg0) {
+                	 btnNasta.setDisable(true);
+                	 btnForra.setDisable(true);
+                	 tidVarning.setText("Nu är provtiden slut. Vänligen lämna in provet "
+                	 		+ "genom att klicka på Lämna in prov till höger");
+                	 lblTxtQuestion.setText("");
+                	 lblFragaNr.setText("");
+                	 rootFlow.getChildren().clear();
+                 }
+             }); */
 
-                    
-                    
-                      	
             
+        	
+        }
+        
+        
+        public String setMinSec(int timeleft) {
+        	String tid = "";
+        	int nrOfMin = timeleft/60;
+        	int nrOfSec = timeleft - (nrOfMin*60);
+        	tid = nrOfMin+"min:"+nrOfSec+"sek";
+        	return tid;
         }
         
 	// Create method to display multiple-question type in GUI.
 			public void showQuestionType() {                          
 				st = mt.initBigTest();
-				testID=st.getId();
-				testTime = st.getTestTime()*60;				
+				testID=st.getId();						
 				questionList = new ArrayList<>();
                                 
                                 /////added one line
@@ -164,6 +200,8 @@ public class MainWindow extends Application {
                                 /////added if
                                 if(initListIterator==0){
                                     initAnswerSubList();
+                                    testTime = st.getTestTime()*60;	
+                                    testTime = 20;
                                 }
                                 
 				if (q.isMultiQuestion()== true) {
@@ -204,11 +242,11 @@ public class MainWindow extends Application {
                                 //////added
                                 initListIterator++;
 				
-				//rootFlow.getChildren().addAll(cb);
-			}
-	
-	
-			
+				tidVarning = new Label("");
+				tidVarning.setTextFill(Color.RED);
+				bordertop.setCenter(tidVarning);
+			}	
+				
 	public void start (Stage primaryStage)  {
 		
 		// Give the stage a title.
@@ -218,9 +256,7 @@ public class MainWindow extends Application {
 		Scene scene3 = new Scene(rootborder, 750,600, Color.WHITE);
 					
 		primaryStage.setFullScreen(true);
-		
-                                           
-			
+					
 		// TRY W BorderPane: To set buttons and labels to left and right.
 		bordertop = new BorderPane();
 		borderbottom = new BorderPane();
@@ -234,10 +270,9 @@ public class MainWindow extends Application {
 		
 		// Create a label to a question 1.
 		Label lblQuestion1 = new Label("Vad är JavaFx?");
-						
-								
+														
 		// Create button: "Lämna in prov"
-		Button btnInlamning = new Button("Lämna in prov");
+		btnInlamning = new Button("Lämna in prov");
 		bordertop.setMargin(btnInlamning, new Insets(12,12,12,12));
 		bordertop.setRight(btnInlamning);
 		btnInlamning.setDisable(true);
@@ -257,7 +292,7 @@ public class MainWindow extends Application {
 		});
 				
 		// BUTTON: "NÄSTA".
-		Button btnNasta = new Button ("Nästa");
+		btnNasta = new Button ("Nästa");
 		borderbottom.setMargin(btnNasta, new Insets(12,12,12,12));
 		borderbottom.setRight(btnNasta);
 		
@@ -278,12 +313,9 @@ public class MainWindow extends Application {
 	  		  					as.setAnswerString(cb[i].getText());
 	  		  					as.setId(currentQuestionNr);
                                                                 /////added
-	  		  					listAS.set(currentQuestionNr-1,as);
-                                                                
-	  		  				}
-                                                        
-                                                        else{
-                                                                
+	  		  					listAS.set(currentQuestionNr-1,as);                                                                
+	  		  				}                                                       
+                                                        else{                                                                
                                                         }
 	  					}
 	  					else {
@@ -366,9 +398,7 @@ public class MainWindow extends Application {
                                                 
 		  				lblFragaNr.setText("Fråga " + (currentQuestionNr)  + "/" + nrOfQuestions);
 	  				}
-	  				btnForra.setDisable(false);
-                                        
-                                        
+	  				btnForra.setDisable(false);                                       
                                         
 	  	  		}	  			
 	  			}
@@ -389,9 +419,7 @@ public class MainWindow extends Application {
                                         if(currentQuestionNr!=nrOfQuestions+1) {
                                         questionList=st.getQuestions();
 	  				for(int i=0; i<cb.length;i++) {
-                                            
-                                           
-                                            
+                                                                                        
 	  					if(questionList.get(currentQuestionNr-1).isMultiQuestion()) {
 	  						if(cb[i].isSelected()) {
 	  		  					AnswerSubmited as = new AnswerSubmited();
