@@ -12,8 +12,7 @@ public class NetworkConnection implements Runnable {
     private PrintWriter out;
     private CommandHandler commandHandler;
 
-    public NetworkConnection (String IPADRESS, int PORT, CommandHandler commandHandler) {
-        this.commandHandler = commandHandler;
+    public NetworkConnection (String IPADRESS, int PORT) {
         try {
             server = new Socket(IPADRESS,PORT);
             out = new PrintWriter(server.getOutputStream(),true);
@@ -23,18 +22,25 @@ public class NetworkConnection implements Runnable {
         }
     }
 
+    public void setCommandHandler(CommandHandler commandHandler){
+        this.commandHandler = commandHandler;
+        commandHandler.registerServer(this);
+    }
+
     public void send(String jsonData){
         out.println(jsonData);
     }
 
     public void run() {
+        String logLine;
         while (!disconnect) {
             try {
                 Scanner sc = new Scanner(server.getInputStream());
 
                 while (sc.hasNextLine()) {
-                    System.out.println("i while-loop nr 2");
-                    commandHandler.parse(sc.nextLine());
+                    logLine = sc.nextLine();
+                    System.out.println("FROM SERVER "+logLine); // TEST
+                    commandHandler.parse(logLine);
                 }
 
             } catch (IOException e) {
