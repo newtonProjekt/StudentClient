@@ -10,6 +10,9 @@ import beans.MakeTest;
 import beans.Question;
 import beans.SchoolTest;
 import beans.SubmittedTest;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 // CREATE METHOD TO EITHER SHOW MULTIPLE OR OPEN TEXT QUESTION-TYPES.
 /**
  * Gui main class
@@ -36,10 +39,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class MainWindow extends Application {
-	//Create object of class Prov.
-	Prov p = new Prov();
+	
 	
 	ToggleGroup toggleCheckBox;
 	
@@ -50,6 +53,7 @@ public class MainWindow extends Application {
 	int testID=0;
 	
 	int index2 = -1;
+	
 	
 	
 	TextArea txtAnswer;
@@ -85,25 +89,83 @@ public class MainWindow extends Application {
 	Label questionText = new Label();
 	String svar;
 	
+	Timeline timeline;
+	private static final Integer STARTTIME = 15;
+	//private Integer timeSeconds = STARTTIME;
+	Label lblTid;
+	int testTime =0;
+	
+
+	
 	FlowPane rootFlow = new FlowPane(Orientation.VERTICAL, 10, 10);
+        
+        ///////added
+        int initListIterator = 0;
+        List<Answer> answerlist;
 	
 	public void setMakeTest(SchoolTest y) {
 		this.st = y;
 		
 	}
 		
+        ///////added
+        public void initAnswerSubList(){
+         
+                for(int y = 0 ; y<questionList.size() ; y++){
+                    AnswerSubmited as = new AnswerSubmited();
+                    as.setAnswerString("");
+                    listAS.add(as);
+                }
+                timeline = new Timeline();
+                lblTid.setText("Tid kvar:  " +
+                        Integer.toString(testTime));
+                timeline.setCycleCount(Timeline.INDEFINITE);
+                timeline.getKeyFrames().add(
+                        new KeyFrame(Duration.seconds(1),
+                                //new  {
+                                new EventHandler<ActionEvent>() {
+                        	
+                                    // KeyFrame event handler
+                                    public void handle(ActionEvent event) {
+                                        testTime--;
+                                        // update timerLabel
+                                        lblTid.setText("Tid kvar: " +
+                                                Integer.toString(testTime));
+                                        if (testTime <= 0) {
+                                            timeline.stop();
+                                            System.out.println("Tiden är slut");
+                                        }
+                                    }
+                                }));
+                timeline.playFromStart();        
+                    
+
+                    
+                    
+                      	
+            
+        }
+        
 	// Create method to display multiple-question type in GUI.
-			public void showQuestionType() {
-				
-				st = mt.initTest();
+			public void showQuestionType() {                          
+				st = mt.initBigTest();
 				testID=st.getId();
+				testTime = st.getTestTime()*60;				
 				questionList = new ArrayList<>();
-				List<Answer> answerlist = new ArrayList<Answer>();
+                                
+                                /////added one line
+				answerlist = new ArrayList<Answer>();
 				questionList=st.getQuestions();
 				nrOfQuestions=questionList.size();
 				q=questionList.get(currentQuestionNr-1);
 				questionText.setText(q.getQuestionText());
 				rootFlow.getChildren().add(questionText);
+                                
+                                /////added if
+                                if(initListIterator==0){
+                                    initAnswerSubList();
+                                }
+                                
 				if (q.isMultiQuestion()== true) {
 					answerlist = q.getAnswers();
 					cb = new CheckBox[answerlist.size()];
@@ -111,7 +173,10 @@ public class MainWindow extends Application {
 						index2 = x;
 						//cb[x].setText(answerlist.get(x).getAnswerText());
 						cb[x]=new CheckBox(answerlist.get(x).getAnswerText());
-						rootFlow.getChildren().add(cb[x]);	
+						rootFlow.getChildren().add(cb[x]);
+                                                
+                                                
+                                                
 						cb[x].setOnAction(new EventHandler<ActionEvent>() {
 						public void handle (ActionEvent ae) {
 							for(int b=0; b<cb.length;b++) {
@@ -135,6 +200,9 @@ public class MainWindow extends Application {
 				lblFragaNr = new Label("Fråga " + (currentQuestionNr)  + "/" + questionList.size());
 				bordertop.setMargin(lblFragaNr,new Insets (12,12,12,12));
 				bordertop.setLeft(lblFragaNr);
+                                
+                                //////added
+                                initListIterator++;
 				
 				//rootFlow.getChildren().addAll(cb);
 			}
@@ -150,7 +218,8 @@ public class MainWindow extends Application {
 		Scene scene3 = new Scene(rootborder, 750,600, Color.WHITE);
 					
 		primaryStage.setFullScreen(true);
-							
+		
+                                           
 			
 		// TRY W BorderPane: To set buttons and labels to left and right.
 		bordertop = new BorderPane();
@@ -199,25 +268,58 @@ public class MainWindow extends Application {
 	  			
 	  			{	questionList=st.getQuestions();
 	  				for(int i=0; i<cb.length;i++) {
+                                            
+                                           
+                                            
 	  					if(questionList.get(currentQuestionNr-1).isMultiQuestion()) {
 	  						if(cb[i].isSelected()) {
 	  		  					AnswerSubmited as = new AnswerSubmited();
 	  		  					as.setQuestionId(currentQuestionNr);
 	  		  					as.setAnswerString(cb[i].getText());
 	  		  					as.setId(currentQuestionNr);
-	  		  					listAS.add(as);
-	  		  					
-	  		  				}	
+                                                                /////added
+	  		  					listAS.set(currentQuestionNr-1,as);
+                                                                
+	  		  				}
+                                                        
+                                                        else{
+                                                                
+                                                        }
 	  					}
 	  					else {
-	  						AnswerSubmited as = new AnswerSubmited();
-	  						as.setQuestionId(currentQuestionNr);
-		  					as.setAnswerString(txtAnswer.getText());
-		  					as.setId(currentQuestionNr);
-		  					listAS.add(as);
-		  					break;		  					
+                                                        ////Added if
+                                                        if(currentQuestionNr!=nrOfQuestions+1) {
+                                                            AnswerSubmited as = new AnswerSubmited();
+                                                            as.setQuestionId(currentQuestionNr);
+                                                            as.setAnswerString(txtAnswer.getText());
+                                                            as.setId(currentQuestionNr);
+                                                            ////Added
+                                                            listAS.set(currentQuestionNr-1,as);
+                                                            break;	
+                                                            }
 	  					}	  						  				
 	  				}
+                                        
+                                        /////added 
+                                        if(questionList.get(currentQuestionNr-1).isMultiQuestion()) {
+                                        boolean cbMarked = false;
+                                        for(int d = 0 ; d<cb.length ; d++){
+                                            if(cb[d].isSelected()){
+                                                cbMarked = true;
+                                                break;
+                                            }
+                                        }
+                                        
+                                        if(cbMarked == false){
+                                            AnswerSubmited as = new AnswerSubmited();
+                                            as.setQuestionId(currentQuestionNr);
+                                            as.setAnswerString("");
+                                            as.setId(currentQuestionNr);
+                                            listAS.set(currentQuestionNr-1,as);
+                                        }
+                                        }
+                                        /////end of added
+                                        
 	  				rootFlow.getChildren().clear();
 	  				currentQuestionNr++;
 	  				
@@ -231,14 +333,43 @@ public class MainWindow extends Application {
 						rootFlow.getChildren().add(txtAnswer);
 						for(int i=0; i<questionList.size();i++) {
 							txtAnswer.setText(txtAnswer.getText()+ (i+1)+ ")" + questionList.get(i).getQuestionText()+"\n");
-							txtAnswer.setText(txtAnswer.getText()+ listAS.get(i).getAnswerString()+ "\n");
+							txtAnswer.setText(txtAnswer.getText()+ "svar " + (i+1) +": " +listAS.get(i).getAnswerString()+ "\n");
 						}
 	  				}
 	  				else{
 	  					showQuestionType();
+                                                
+                                                //////added
+                                        if(questionList.get(currentQuestionNr-1).isMultiQuestion()) {
+                                            for(int y = 0 ; y<answerlist.size() ; y++){
+                                                //System.out.println(listAS.get(y).getAnswerString());
+                                                //System.out.println(answerlist.get(y).getAnswerText());
+                                                if(listAS.get(currentQuestionNr-1).getAnswerString().equals(answerlist.get(y).getAnswerText())){
+                                                    cb[y].setSelected(true);
+          
+                                                    
+                                                }
+                                            }
+                                        }
+                                        else{
+                                            if (!listAS.get(currentQuestionNr-1).getAnswerString().equals("")){
+                                                txtAnswer.setText(listAS.get(currentQuestionNr-1).getAnswerString());
+                                            }
+                                            else{
+                                             
+                                            if(currentQuestionNr!=nrOfQuestions+1) {
+                                                txtAnswer.setText(listAS.get(currentQuestionNr-1).getAnswerString());
+                                            }
+                                            }
+                                        }
+                                        ////end of added
+                                                
 		  				lblFragaNr.setText("Fråga " + (currentQuestionNr)  + "/" + nrOfQuestions);
 	  				}
 	  				btnForra.setDisable(false);
+                                        
+                                        
+                                        
 	  	  		}	  			
 	  			}
 	  	  		});
@@ -253,23 +384,108 @@ public class MainWindow extends Application {
 		btnForra.setOnAction(new EventHandler<ActionEvent>() {
 	  		public void handle (ActionEvent ae) {
 	  			
-	  			{	  	  			
+	  			{	  	
+                                        ////added
+                                        if(currentQuestionNr!=nrOfQuestions+1) {
+                                        questionList=st.getQuestions();
+	  				for(int i=0; i<cb.length;i++) {
+                                            
+                                           
+                                            
+	  					if(questionList.get(currentQuestionNr-1).isMultiQuestion()) {
+	  						if(cb[i].isSelected()) {
+	  		  					AnswerSubmited as = new AnswerSubmited();
+	  		  					as.setQuestionId(currentQuestionNr);
+	  		  					as.setAnswerString(cb[i].getText());
+	  		  					as.setId(currentQuestionNr);
+                                                                /////added
+	  		  					listAS.set(currentQuestionNr-1,as);
+                                                                
+	  		  				}
+                                                        else{
+                                                            
+                                                        }
+	  					}
+	  					else {
+                                                        
+                                                        if(currentQuestionNr!=nrOfQuestions+1) {
+                                                            AnswerSubmited as = new AnswerSubmited();
+                                                            as.setQuestionId(currentQuestionNr);
+                                                            as.setAnswerString(txtAnswer.getText());
+                                                            as.setId(currentQuestionNr);
+                                                            ////Added
+                                                            listAS.set(currentQuestionNr-1,as);
+                                                            break;	
+                                                            }
+	  					}	  						  				
+	  				}
+                                        }
+                                        ////end of added
+                                        
+                                        /////added 
+                                        if (currentQuestionNr!=nrOfQuestions+1){
+                                        if((questionList.get(currentQuestionNr-1).isMultiQuestion()) ) {
+                                        boolean cbMarked = false;
+                                        for(int d = 0 ; d<cb.length ; d++){
+                                            if(cb[d].isSelected()){
+                                                cbMarked = true;
+                                                break;
+                                            }
+                                        }
+                                        
+                                        if(cbMarked == false){
+                                            AnswerSubmited as = new AnswerSubmited();
+                                            as.setQuestionId(currentQuestionNr);
+                                            as.setAnswerString("");
+                                            as.setId(currentQuestionNr);
+                                            listAS.set(currentQuestionNr-1,as);
+                                        }
+                                        }
+                                        }
+                                        /////end of added
+                                        
 	  				rootFlow.getChildren().clear();
 	  				currentQuestionNr--;
 	  				showQuestionType();
+                                        
+                                        
+                                        
 	  				lblFragaNr.setText("Fråga " + (currentQuestionNr)  + "/" + nrOfQuestions);
 	  				if(currentQuestionNr==1) {
 	  					btnForra.setDisable(true);
 	  				}
 	  				btnNasta.setDisable(false);
 	  				btnInlamning.setDisable(true);
-	  	  		}
+                                        
+                                        //////added
+                                        if(questionList.get(currentQuestionNr-1).isMultiQuestion()) {
+                                            for(int y = 0 ; y<cb.length ; y++){
+                                                //System.out.println(listAS.get(y).getAnswerString());
+                                                //System.out.println(answerlist.get(y).getAnswerText());
+                                                if(listAS.get(currentQuestionNr-1).getAnswerString().equals(answerlist.get(y).getAnswerText())){
+                                                    cb[y].setSelected(true);
+                                                    
+                                                }
+                                            }
+                                        }
+                                        else{
+                                            if (!listAS.get(currentQuestionNr-1).getAnswerString().equals("")){
+                                                txtAnswer.setText(listAS.get(currentQuestionNr-1).getAnswerString());
+                                            }
+                                            else{
+                                             
+                                            if(currentQuestionNr!=nrOfQuestions+1) {
+                                                txtAnswer.setText(listAS.get(currentQuestionNr-1).getAnswerString());
+                                            }
+                                            }
+                                        }
+                                        }
 	  			}
 	  	  		});
 	  
 			
 		// Create a label for "Återstående tid: 27 min.".
-		Label lblTid = new Label ("Återstående tid: 27 min");
+		lblTid = new Label ("Återstående tid: 27 min");
 		borderbottom.setMargin(lblTid, new Insets(12,12,12,12));
 		borderbottom.setCenter(lblTid);
 										
@@ -285,4 +501,5 @@ public class MainWindow extends Application {
 
 	
 }
+
 
