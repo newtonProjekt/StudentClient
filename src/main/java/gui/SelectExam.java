@@ -1,5 +1,6 @@
 package gui;
 
+import beans.SchoolTest;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -21,19 +22,21 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class SelectExam extends Application {
+import java.util.List;
+
+public class SelectExam {
 	
 	
-	Text text1 = new Text(450, 200,"Vänligen välj ett prov:");
+	Text text1 = new Text(450, 200,"Vï¿½nligen vï¿½lj ett prov:");
 	
-	//Textsträng som ska länkas till uppladdade prov från server.
+	//Textstrï¿½ng som ska lï¿½nkas till uppladdade prov frï¿½n server.
 	Text text2 = new Text(450,230,"Prov i Desktopapplikationer 1");
 	
 	TableRow table1;
 		
 	
 	
-	public void start (Stage primaryStage)  {
+	public SelectExam (Stage primaryStage, List<SchoolTest> testList)  {
 		
 		// Give the stage a title.
 		primaryStage.setTitle("Newtons prov");
@@ -95,11 +98,6 @@ public class SelectExam extends Application {
 		primaryStage.show();	
 		
 }
-
-	public static void main(String[] args) {
-    Application.launch(args);
-    
-	}
 
 
 }

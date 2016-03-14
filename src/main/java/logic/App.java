@@ -3,6 +3,7 @@ package logic;
 import beans.Login;
 import beans.SchoolTest;
 import gui.LoginBox;
+import gui.SelectExam;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -18,8 +19,10 @@ import java.util.List;
  */
 public class App extends Application{
 
+	private SchoolTest currTest;
 	private CommandHandler ch;
 	private LoginBox loginBox;
+	private Stage primaryStage;
 	private String loginName, password;
 
 	private boolean loggedIn = false;
@@ -53,6 +56,7 @@ public class App extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
+		this.primaryStage = primaryStage;
 		loginBox = new LoginBox(this);
 		loginBox.showAndWait();
 
@@ -66,7 +70,7 @@ public class App extends Application{
 	 */
 	public void showTestBox(List<SchoolTest> availableTests){
 		Platform.runLater(() ->{
-			//TODO Send list to selectexam.
+			SelectExam selectGui = new SelectExam(primaryStage, availableTests);
 		});
 	}
 
@@ -105,5 +109,9 @@ public class App extends Application{
 		loginBox.setErrorLabel("Login misslyckades.");
 	}
 
+	public void doTest(SchoolTest test){
+		currTest = test;
+
+	}
 
 }
