@@ -1,20 +1,33 @@
 package beans;
 
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * The entity class that represents the tests. Contains the type of test and the questions in the test.
+ *
+ * id 			= Auto generated id value.
+ * name 		= Name of test.
+ * subject		= The subject of the test.
+ * dateCreated	= Date of test creation.
+ * questions	= List of questions in the test
+ * testTime		= Timecap to complete the test.
+ * gThreshold	= The percentage threshold for a G
+ * vgThreshold	= The percentage threshold for a VG
+ *
  */
+
 public class SchoolTest {
 
-	private int id;
+	private Integer id;
 	private String name;
 	private String subject;
-	private String dateCreated;
+	private Date dateCreated;
 	private List<Question> questions;
 	private int testTime;
+	private int gThreshold;
+	private int vgThreshold;
 
 	public SchoolTest(){
 		questions = new ArrayList<>();
@@ -33,11 +46,11 @@ public class SchoolTest {
 		this.subject = subject;
 	}
 
-	public String getDateCreated() {
+	public Date getDateCreated() {
 		return dateCreated;
 	}
 
-	public void setDateCreated(String dateCreated) {
+	public void setDateCreated(Date dateCreated) {
 		this.dateCreated = dateCreated;
 	}
 
@@ -73,6 +86,22 @@ public class SchoolTest {
 		questions.remove(currQuestion);
 	}
 
+	public int getgThreshold() {
+		return gThreshold;
+	}
+
+	public void setgThreshold(int gThreshold) {
+		this.gThreshold = gThreshold;
+	}
+
+	public int getVgThreshold() {
+		return vgThreshold;
+	}
+
+	public void setVgThreshold(int vgThreshold) {
+		this.vgThreshold = vgThreshold;
+	}
+
 	public int getTestTime() {
 		return testTime;
 	}
@@ -80,4 +109,5 @@ public class SchoolTest {
 	public void setTestTime(int testTime) {
 		this.testTime = testTime;
 	}
+
 }

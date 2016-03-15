@@ -7,13 +7,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Bean class for questions that contains the answers refering to the tests, question type (multi or text), question
+ * The entity class for questions that contains the answers refering to the tests, question type (multi or text), question
  * text and optionally question image.
+ *
+ * id 			        = Auto generated id value.
+ * multiQuestion        = Boolean that indicates if a question is text or multiple answers question.
+ * vgQuestion           = Boolean that indicates if a questions is a VG-question.
+ * questionImage        = Name of the optional question image.
+ * questionImageFile    = Non persistent variable that references the Image object.
+ * questionText         = The question text string.
+ * answers              = List of answers associated with the question.
+ *
  */
 
 public class Question {
 
-    private int id;
+    private Integer id;
     private boolean multiQuestion;
     private boolean vgQuestion;
     private int points;

@@ -1,19 +1,26 @@
 package beans;
 
-
 /**
- * Bean class that stores the user submitted answers.
+ * The entity class that stores the usersubmited answers.
  * 
  * @author Johan (jolindse@hotmail.com)
  *
+ * id 				= Auto generated id value.
+ * testId			= Reference to the test id.
+ * questionId		= Reference to the question id.
+ * answerString		= The string containing the selected/given answer.
+ * correctAnswer	= Boolean referencing if the supplied answer was deemed correct.
+ * corrected		= Boolean referencing if the submitted answer has been corrected.
  */
 
 public class AnswerSubmited {
+
 	private int id;
 	private int testId;
 	private int questionId;
 	private String answerString;
 	private boolean correctAnswer;
+	private boolean corrected;
 	
 	public AnswerSubmited(){
 	}
@@ -65,4 +72,11 @@ public class AnswerSubmited {
 		this.correctAnswer = correctAnswer;
 	}
 
+	public boolean isCorrected() {
+		return corrected;
+	}
+
+	public void setCorrected(boolean corrected) {
+		this.corrected = corrected;
+	}
 }
