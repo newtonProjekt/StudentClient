@@ -7,6 +7,10 @@ package gui;
 import beans.SchoolTest;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -14,6 +18,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.MultipleSelectionModel;
 import javafx.scene.control.TableRow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -26,9 +32,85 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SelectExam {
+
+	//Text of "Vanligen valj ett prov"
+	Text text1 = new Text(450, 200, "Vanligen valj ett prov:");
+
+	//Textstrang som ska lankas till uppladdade prov fran server.
+	Text text2 = new Text(450, 230, "Prov i Desktopapplikationer 1");
+
+	TableRow table1;
+
+
+	public SelectExam(Stage primaryStage, List<SchoolTest> testList) {
+
+		// Give the stage a title.
+		primaryStage.setTitle("Newtons prov");
+		BorderPane rootborder = new BorderPane();
+
+		// Create a scene.
+		Scene scene2 = new Scene(rootborder, 750, 600, Color.WHITE);
+		primaryStage.setFullScreen(true);
+
+		//Modified text of Newton, set on the roundRect rectangle as Newton label.
+		Text txtNewton = new Text("Newton");
+		txtNewton.setFill(Color.WHITE);
+		txtNewton.setFont(new Font("Sans-serif, bold", 30));
+
+		//Create rounded rectangle to set the Newton Label.
+		Rectangle roundRect = new Rectangle();
+		roundRect.setX(1);
+		roundRect.setY(1);
+		roundRect.setWidth(2800);
+		roundRect.setHeight(120);
+		roundRect.setArcWidth(10);
+		roundRect.setArcHeight(20);
+		roundRect.setFill(Color.ORANGE);
+
+		//Set the roundRect with Newton label to upper left.
+		StackPane stackpane = new StackPane();
+		stackpane.getChildren().addAll(roundRect, txtNewton);
+		stackpane.setLayoutX(65);
+		stackpane.setLayoutY(65);
+		rootborder.getChildren().addAll(stackpane);
+
+		//Change Font and text size: text1.
+		text1.setFont(new Font("Arial", 20));
+		text1.setFill(Color.BLACK);
+
+		//Change Font and text size: text2.
+		text2.setFont(new Font("Arial", 15));
+		text2.setFill(Color.ORANGE);
+
+		// BUTTON: "AVBRYT"
+		Button btnAvbryt = new Button("Avbryt");
+		VBox vbox1 = new VBox();
+		vbox1.setPadding(new Insets(3));
+		vbox1.setMargin(btnAvbryt, new Insets(400, 450, 450, 450));
+		vbox1.getChildren().add(btnAvbryt);
+		rootborder.setCenter(vbox1);
+		btnAvbryt.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent ae) {
+				primaryStage.close();
+			}
+		});
+
+		rootborder.getChildren().addAll(text1, text2);
+
+
+		// Set the scene on the stage.
+		primaryStage.setScene(scene2);
+		primaryStage.show();
+
+	}
+}
+
+/*
+public class SelectExam extends Application {
 	
 	//Text of "V�nligen v�lj ett prov"
 	Text text1 = new Text(450, 200,"V�nligen v�lj ett prov:");
@@ -37,7 +119,6 @@ public class SelectExam {
 	Text text2 = new Text(450,230,"Prov i Desktopapplikationer 1");
 	
 	TableRow table1;
-		
 	
 	
 	public SelectExam (Stage primaryStage, List<SchoolTest> testList)  {
@@ -49,6 +130,33 @@ public class SelectExam {
 		// Create a scene.
 		Scene scene2 = new Scene(rootborder, 750,600, Color.WHITE);
 		primaryStage.setFullScreen(true);
+		
+		// Create an ObservableList of entries for the list view.
+		ObservableList<String> examToSelect =
+				FXCollections.observableArrayList(".Net","Databasteknik","Desktopapplikationer");
+		
+		// Create the ListView that displays the items in examToSelect.
+		ListView<String> examTypes = new ListView<String>(examToSelect);
+		
+		// Set the preferred height and width.
+		examTypes.setPrefSize(100, 70);
+		
+		// Get the list view selection model.
+		MultipleSelectionModel<String> lvSelModel = 
+											examTypes.getSelectionModel();
+		
+		// Use a change listener to respond to a change of selection 
+		// within a list view.
+		lvSelModel.selectedItemProperty().addListener(
+										  new ChangeListener<String>() {
+			public void changed(ObservableValue<? extends String> changed,
+										String oldVal, String newVal){
+				// Display the selection model.
+				//responselable.setText("sdfsdf" + newVal);
+			}			
+			});
+		
+		// Add the label and list view to the scene graph.
 		
 		//Modified text of Newton, set on the roundRect rectangle as Newton label.
 		Text txtNewton = new Text("Newton");
@@ -93,7 +201,7 @@ public class SelectExam {
 			}
 		});
 		
-		rootborder.getChildren().addAll(text1, text2);
+		rootborder.getChildren().addAll(text1, examTypes);
 		
 				
 		// Set the scene on the stage.
@@ -103,4 +211,25 @@ public class SelectExam {
 }
 
 
-}
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	/*@Override
+	public void start(Stage arg0) throws Exception {
+		//Stage s = new Stage();
+		List<SchoolTest> testList = new ArrayList<>();
+		SelectExam examselect = new SelectExam(arg0,testList);
+		
+		
+	}
+	public static void main(String[] args) {
+		launch(args);
+	}
+		
+} 
+*/
