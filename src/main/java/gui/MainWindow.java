@@ -281,7 +281,8 @@ public class MainWindow extends Application {
 	  			subTest.setTestId(testID);;
   				subTest.setAnswersSubmited(listAS);
   				
-  				//app.doLogin(app.getPersNr(), app.getPassword());
+  				app.initNetwork();
+  				app.doLogin(app.getPersNr(), app.getPassword());
   				app.getCh().send("submit", subTest);
   				
 	  			rootFlow.getChildren().clear();
@@ -291,6 +292,7 @@ public class MainWindow extends Application {
 	  			lblTid.setText("");
 	  			lblFragaNr.setText("");
 	  			btnInlamning.setDisable(true);
+	  			primaryStage.close();
 	  			
 	  				}
 		});

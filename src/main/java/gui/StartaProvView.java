@@ -65,8 +65,8 @@ public void start (Stage primaryStage)  {
 		}
 		String info = "Testnamn: " + schooltest.getName() + "\nMax G-poäng: " + maxGpoang + 
 				"\nMax VG-poäng: " + maxVGpoang + "\nPoäng för G: " +
-				(((schooltest.getgThreshold())/100)*maxGpoang) + "\nPoäng för VG: " + 
-				(((schooltest.getVgThreshold())/100)*maxVGpoang)+
+				schooltest.getgThreshold() + " % av max G-poäng" + "\nPoäng för VG: " + 
+				schooltest.getVgThreshold() + " % av max VG-poäng" +
 				"\nTid för testet: " + schooltest.getTestTime() + " minuter";
 		txtInfo.setText(info);
 		
@@ -88,7 +88,7 @@ public void start (Stage primaryStage)  {
   			  mw.start(stage);
   			  mw.showQuestionType();
   			  mw.countdown();
-  			  //app.dropClient();
+  			  app.dropClient();
   			  //app.getCH().send("starttest", schooltest.getId());
   			
   		}

@@ -70,9 +70,11 @@ public class SelectExam extends Application {
 		
 		
 		// Create a scene.
-		Scene scene2 = new Scene(rootborder, 750,600, Color.WHITE);
+		Scene scene2 = new Scene(rootborder, 1000,800, Color.WHITE);
 		//primaryStage.setFullScreen(true);
-		primaryStage.setFullScreen(true);
+		primaryStage.setX(0);
+		primaryStage.setY(0);
+		//primaryStage.setMaximized(true);
 		
 		/*
 		// Create an ObservableList of entries for the list view.

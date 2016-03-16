@@ -81,10 +81,10 @@ public class App extends Application {
     public void doLogin(String persNumber, String password) {
         loginName = persNumber;
         this.password = password;
-        if (!loggedIn) {
+        //if (!loggedIn) {
             Login currLogin = new Login(loginName, this.password, true);
             ch.send("login", currLogin);
-        }
+        //}
     }
 
     /**
@@ -111,7 +111,7 @@ public class App extends Application {
 
     }
 
-    private void initNetwork() {
+    public void initNetwork() {
         nc = new NetworkConnection("localhost", 3004);
         ch = new CommandHandler(this);
         nc.setCommandHandler(ch);
