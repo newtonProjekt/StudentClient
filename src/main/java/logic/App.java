@@ -15,50 +15,46 @@ import java.util.List;
 
 /**
  * Application entry class. Starts network and login routines.
- *
+ * <p>
  * Created by Johan Lindström (jolindse@hotmail.com) on 2016-03-11.
  */
-public class App extends Application{
-	private SelectExam selectEx;
-	private SchoolTest currTest;
-	private CommandHandler ch;
-	private LoginBox loginBox;
-	private Stage primaryStage;
-	private String loginName, password;
+public class App extends Application {
+    private SelectExam selectEx;
+    private SchoolTest currTest;
+    private CommandHandler ch;
+    private LoginBox loginBox;
+    private Stage primaryStage;
+    private String loginName, password;
+    private NetworkConnection nc;
 
-	private boolean loggedIn = false;
+    private boolean loggedIn = false;
 
-	public static void main(String[] args) {
-		launch(args);
-	}
-	/**
-	 * Inits the network loop and commandhandler.
-	 *
-	 * @throws Exception
-	 */
-	@Override
-	public void init() throws Exception {
-		super.init();
-		NetworkConnection nc = new NetworkConnection("localhost",3004);
-		ch = new CommandHandler(this);
-		nc.setCommandHandler(ch);
-		Thread networkThread = new Thread(nc);
-		networkThread.start();
-		
-	}
+    public static void main(String[] args) {
+        launch(args);
+    }
 
-	/**
-	 * Shows loginbox and waits for login.
-	 *
-	 * @param primaryStage
-	 * @throws Exception
-	 */
-	@Override
-	public void start(Stage primaryStage) throws Exception {
+    /**
+     * Inits the network loop and commandhandler.
+     *
+     * @throws Exception
+     */
+    @Override
+    public void init() throws Exception {
+        super.init();
+        initNetwork();
+    }
 
-		this.primaryStage = primaryStage;
-		loginBox = new LoginBox(this);
-		loginBox.showAndWait();
+    /**
+     * Shows loginbox and waits for login.
+     *
+     * @param primaryStage
+     * @throws Exception
+     */
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+    	this.primaryStage = primaryStage;
+        loginBox = new LoginBox(this);
+        loginBox.showAndWait();
 
 	}
 	/**
@@ -72,46 +68,71 @@ public class App extends Application{
 		});
 	}
 
-	// LOGIN METHODS
+  
 
-	/**
-	 * Send logincommand if user is not allready logged in.
-	 *
-	 * @param persNumber
-	 * @param password
-	 */
-	public void doLogin(String persNumber, String password){
-		loginName = persNumber;
-		this.password = password;
-		if (!loggedIn) {
-			Login currLogin = new Login(loginName, this.password, true);
-			ch.send("login", currLogin);
-		}
-	}
+    // LOGIN METHODS
 
-	/**
-	 * Sets the login ok.
-	 */
-	public void loginOk(){
-		loggedIn=true;
-		Platform.runLater(() ->{
-			loginBox.close();
-			primaryStage.show();
-		});
+    /**
+     * Send logincommand if user is not allready logged in.
+     *
+     * @param persNumber
+     * @param password
+     */
+    public void doLogin(String persNumber, String password) {
+        loginName = persNumber;
+        this.password = password;
+        if (!loggedIn) {
+            Login currLogin = new Login(loginName, this.password, true);
+            ch.send("login", currLogin);
+        }
+    }
 
-	}
+    /**
+     * Sets the login ok.
+     */
+    public void loginOk() {
+        loggedIn = true;
+        Platform.runLater(() -> {
+            loginBox.close();
+            primaryStage.show();
+        });
 
-	/**
-	 * Shows error message if login failed.
-	 */
-	public void loginFailed(){
-		loginBox.setErrorLabel("Login misslyckades.");
-	}
+    }
 
-	public void doTest(SchoolTest test){
-		currTest = test;
+    /**
+     * Shows error message if login failed.
+     */
+    public void loginFailed() {
+        loginBox.setErrorLabel("Login misslyckades.");
+    }
 
-	}
+    public void doTest(SchoolTest test) {
+        currTest = test;
 
+    }
 
+    private void initNetwork() {
+        nc = new NetworkConnection("localhost", 3004);
+        ch = new CommandHandler(this);
+        nc.setCommandHandler(ch);
+        Thread networkThread = new Thread(nc);
+        networkThread.start();
+    }
+
+    public void dropClient(){
+    	
+    	ch.send("disconnect", "");
+    	nc.disconnectServer();
+    	System.out.println("client disconnected!");
+    }
+    
+    public String getPersNr(){
+    	return loginName;
+    }
+    public String getPassword(){
+    	return password;
+    }
+    public CommandHandler getCh(){
+    	return ch;   
+    	}
 }

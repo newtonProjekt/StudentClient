@@ -128,6 +128,7 @@ public class MainWindow extends Application {
                 for(int y = 0 ; y<questionList.size() ; y++){
                     AnswerSubmited as = new AnswerSubmited();
                     as.setAnswerString("");
+                    //as.setQuestionId(st.getQuestions().get(y).getId());
                     listAS.add(as);
                 }
                
@@ -280,12 +281,17 @@ public class MainWindow extends Application {
 	  			subTest.setTestId(testID);;
   				subTest.setAnswersSubmited(listAS);
   				
-  				app.getCH().send("submit", subTest);
+  				//app.doLogin(app.getPersNr(), app.getPassword());
+  				app.getCh().send("submit", subTest);
   				
-	  			/*for (AnswerSubmited answerSave:listAS) {
-	  				System.out.println(answerSave.getAnswerString());
-	  					  				
-	  			}*/	  				  			
+	  			rootFlow.getChildren().clear();
+	  			btnNasta.setDisable(true);
+	  			btnForra.setDisable(true);
+	  			timeline.getKeyFrames().clear();
+	  			lblTid.setText("");
+	  			lblFragaNr.setText("");
+	  			btnInlamning.setDisable(true);
+	  			
 	  				}
 		});
 				
@@ -306,7 +312,7 @@ public class MainWindow extends Application {
 	  					if(questionList.get(currentQuestionNr-1).isMultiQuestion()) {
 	  						if(cb[i].isSelected()) {
 	  		  					AnswerSubmited as = new AnswerSubmited();
-	  		  					as.setQuestionId(currentQuestionNr);
+	  		  					as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
 	  		  					as.setAnswerString(cb[i].getText());
 	  		  					as.setId(currentQuestionNr);
                                                                 /////added
@@ -319,7 +325,7 @@ public class MainWindow extends Application {
                                                         ////Added if
                                                         if(currentQuestionNr!=nrOfQuestions+1) {
                                                             AnswerSubmited as = new AnswerSubmited();
-                                                            as.setQuestionId(currentQuestionNr);
+                                                            as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
                                                             as.setAnswerString(txtAnswer.getText());
                                                             as.setId(currentQuestionNr);
                                                             ////Added
@@ -341,7 +347,7 @@ public class MainWindow extends Application {
                                         
                                         if(cbMarked == false){
                                             AnswerSubmited as = new AnswerSubmited();
-                                            as.setQuestionId(currentQuestionNr);
+                                            as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
                                             as.setAnswerString("");
                                             as.setId(currentQuestionNr);
                                             listAS.set(currentQuestionNr-1,as);
@@ -420,7 +426,7 @@ public class MainWindow extends Application {
 	  					if(questionList.get(currentQuestionNr-1).isMultiQuestion()) {
 	  						if(cb[i].isSelected()) {
 	  		  					AnswerSubmited as = new AnswerSubmited();
-	  		  					as.setQuestionId(currentQuestionNr);
+	  		  					as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
 	  		  					as.setAnswerString(cb[i].getText());
 	  		  					as.setId(currentQuestionNr);
                                                                 /////added
@@ -435,7 +441,7 @@ public class MainWindow extends Application {
                                                         
                                                         if(currentQuestionNr!=nrOfQuestions+1) {
                                                             AnswerSubmited as = new AnswerSubmited();
-                                                            as.setQuestionId(currentQuestionNr);
+                                                            as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
                                                             as.setAnswerString(txtAnswer.getText());
                                                             as.setId(currentQuestionNr);
                                                             ////Added
@@ -460,7 +466,7 @@ public class MainWindow extends Application {
                                         
                                         if(cbMarked == false){
                                             AnswerSubmited as = new AnswerSubmited();
-                                            as.setQuestionId(currentQuestionNr);
+                                            as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
                                             as.setAnswerString("");
                                             as.setId(currentQuestionNr);
                                             listAS.set(currentQuestionNr-1,as);

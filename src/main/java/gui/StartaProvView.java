@@ -88,7 +88,7 @@ public void start (Stage primaryStage)  {
   			  mw.start(stage);
   			  mw.showQuestionType();
   			  mw.countdown();
-  			  
+  			  //app.dropClient();
   			  //app.getCH().send("starttest", schooltest.getId());
   			
   		}
