@@ -68,7 +68,7 @@ public class App extends Application{
 	 */
 	public void showTestBox(List<SchoolTest> availableTests){
 		Platform.runLater(() ->{
-			SelectExam selectGui = new SelectExam(primaryStage, availableTests);
+			SelectExam selectGui = new SelectExam(primaryStage, availableTests, this);
 		});
 	}
 
@@ -112,5 +112,6 @@ public class App extends Application{
 		currTest = test;
 
 	}
+
 
 }

@@ -19,6 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import logic.App;
 
 public class StartaProvView extends Application {
 	
@@ -31,7 +32,7 @@ public class StartaProvView extends Application {
 		// Create instance of SchoolTest.
 		SchoolTest schooltest = new SchoolTest();
 		
-	
+		App app;
 		// "Start prov" knappen
 		Button btnStart = new Button ("Starta provet");
 			
@@ -83,10 +84,12 @@ public void start (Stage primaryStage)  {
   			Stage stage = new Stage();
   		    // Create instance of the MainWindow.java class
   			  MainWindow mw = new MainWindow();
-  			  mw.setTest(schooltest);
+  			  mw.setTestAndApp(schooltest,app);
   			  mw.start(stage);
   			  mw.showQuestionType();
   			  mw.countdown();
+  			  
+  			  //app.getCH().send("starttest", schooltest.getId());
   			
   		}
   		});
@@ -103,7 +106,10 @@ public void start (Stage primaryStage)  {
 	public void setSchoolTest(SchoolTest schooltest){
 		this.schooltest = schooltest;
 	}
-      		
+      
+	public void setApp(App app){
+		this.app = app;
+	}
 
 
 }

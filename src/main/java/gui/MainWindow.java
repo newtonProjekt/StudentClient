@@ -40,6 +40,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import logic.App;
 
 public class MainWindow extends Application {
 	
@@ -110,13 +111,14 @@ public class MainWindow extends Application {
 	Label tidVarning;
 		
 	FlowPane rootFlow = new FlowPane(Orientation.VERTICAL, 10, 10);
-        
+    App app;
         
         int initListIterator = 0;
         List<Answer> answerlist;
 	
-	public void setTest(SchoolTest schooltest) {
+	public void setTestAndApp(SchoolTest schooltest, App app) {
 		this.st = schooltest;
+		this.app = app;
 		
 	}
 		
@@ -183,7 +185,7 @@ public class MainWindow extends Application {
         
 	// METHOD: showQuestionType(). Create method to display multiple-question type in GUI.
 			public void showQuestionType() {                          
-				st = mt.initBigTest();
+				//st = mt.initBigTest();
 				testID=st.getId();						
 				questionList = new ArrayList<>();
                                 
@@ -199,7 +201,7 @@ public class MainWindow extends Application {
                                 if(initListIterator==0){
                                     initAnswerSubList();
                                     testTime = st.getTestTime()*60;	
-                                    testTime = 20;
+                                    
                                 }
                                 
 				if (q.isMultiQuestion()== true) {
@@ -277,10 +279,13 @@ public class MainWindow extends Application {
 	  		
 	  			subTest.setTestId(testID);;
   				subTest.setAnswersSubmited(listAS);
-	  			for (AnswerSubmited answerSave:listAS) {
+  				
+  				app.getCH().send("submit", subTest);
+  				
+	  			/*for (AnswerSubmited answerSave:listAS) {
 	  				System.out.println(answerSave.getAnswerString());
 	  					  				
-	  			}	  				  			
+	  			}*/	  				  			
 	  				}
 		});
 				

@@ -34,6 +34,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import logic.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -56,7 +57,7 @@ public class SelectExam extends Application {
 	SchoolTest schooltest = new SchoolTest();
 	
 	
-	public SelectExam (Stage primaryStage, List<SchoolTest> testList)  {
+	public SelectExam (Stage primaryStage, List<SchoolTest> testList, App app)  {
 		
 		BorderPane rootborder = new BorderPane();
 		FlowPane rootFlow = new FlowPane(Orientation.VERTICAL, 10, 10);
@@ -175,6 +176,7 @@ public class SelectExam extends Application {
 				else{
 					StartaProvView spv = new StartaProvView();
 					spv.setSchoolTest(schooltest);
+					spv.setApp(app);
 					spv.start(primaryStage);
 				}
 				
