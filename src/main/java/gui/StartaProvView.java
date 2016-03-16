@@ -29,7 +29,7 @@ public class StartaProvView extends Application {
 		// Create instance of Maketest.
 		MakeTest mt = new MakeTest();
 		// Create instance of SchoolTest.
-		SchoolTest st = new SchoolTest();
+		SchoolTest schooltest = new SchoolTest();
 		
 	
 		// "Start prov" knappen
@@ -53,7 +53,7 @@ public void start (Stage primaryStage)  {
 				
 		// Create TextArea to set info about the Exam.
 		TextArea txtInfo = new TextArea();
-		txtInfo.setText("Välkommen till Java EE prov 1.");
+		txtInfo.setText(schooltest.getName());
 				
 		// To set the TextArea with the Exam-rules.
 		FlowPane rootFlow = new FlowPane(Orientation.VERTICAL, 10, 10);
@@ -82,9 +82,12 @@ public void start (Stage primaryStage)  {
 
 	public static void main(String[] args) {
         Application.launch(args);
-        
-      
+	}     
+     
+	public void setSchoolTest(SchoolTest schooltest){
+		this.schooltest = schooltest;
+	}
       		
 
-}
+
 }

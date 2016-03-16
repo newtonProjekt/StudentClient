@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import network.CommandHandler;
 import network.NetworkConnection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,6 +46,7 @@ public class App extends Application{
 		nc.setCommandHandler(ch);
 		Thread networkThread = new Thread(nc);
 		networkThread.start();
+		
 	}
 
 	/**
@@ -59,7 +61,7 @@ public class App extends Application{
 		this.primaryStage = primaryStage;
 		loginBox = new LoginBox(this);
 		loginBox.showAndWait();
-
+		
 
 	}
 
@@ -98,6 +100,7 @@ public class App extends Application{
 		loggedIn=true;
 		Platform.runLater(() ->{
 			loginBox.close();
+			primaryStage.show();
 		});
 
 	}

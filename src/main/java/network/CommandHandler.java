@@ -5,6 +5,7 @@ import beans.SchoolTest;
 import com.google.gson.Gson;
 import logic.App;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,8 +42,16 @@ public class CommandHandler {
         switch (currMessage.getCommand()) {
 
             case "gettestlist":
-
-                List<SchoolTest> testList = gson.fromJson(cmdData.get(0),List.class);
+            	
+            	SchoolTest[] testArray = gson.fromJson(cmdData.get(0),SchoolTest[].class);
+                 
+            	List<SchoolTest> testList = new ArrayList<>();
+            	for(int x = 0 ; x < testArray.length ; x++){
+            		testList.add(testArray[x]);
+            	}
+            	
+            	
+            	//System.out.println(testArray[0].getName());
 
                 controller.showTestBox(testList);
                 break;
