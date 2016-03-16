@@ -53,7 +53,22 @@ public void start (Stage primaryStage)  {
 				
 		// Create TextArea to set info about the Exam.
 		TextArea txtInfo = new TextArea();
-		txtInfo.setText(schooltest.getName());
+		int maxGpoang = 0;
+		int maxVGpoang = 0;
+		for(int x =0 ; x<schooltest.getQuestions().size() ; x++){
+			maxGpoang += schooltest.getQuestions().get(x).getPoints();
+			if(schooltest.getQuestions().get(x).isVgQuestion()){
+				maxVGpoang += 1 ;
+			}
+			
+		}
+		String info = "Testnamn: " + schooltest.getName() + "\nMax G-poäng: " + maxGpoang + 
+				"\nMax VG-poäng: " + maxVGpoang + "\nPoäng för G: " +
+				(((schooltest.getgThreshold())/100)*maxGpoang) + "\nPoäng för VG: " + 
+				(((schooltest.getVgThreshold())/100)*maxVGpoang)+
+				"\nTid för testet: " + schooltest.getTestTime() + " minuter";
+		txtInfo.setText(info);
+		
 				
 		// To set the TextArea with the Exam-rules.
 		FlowPane rootFlow = new FlowPane(Orientation.VERTICAL, 10, 10);
@@ -68,6 +83,7 @@ public void start (Stage primaryStage)  {
   			Stage stage = new Stage();
   		    // Create instance of the MainWindow.java class
   			  MainWindow mw = new MainWindow();
+  			  mw.setTest(schooltest);
   			  mw.start(stage);
   			  mw.showQuestionType();
   			  mw.countdown();

@@ -75,6 +75,8 @@ public class MakeTest {
         schooltest.setId(1);
         schooltest.setName("Test 1");
         schooltest.setQuestions(listOfQuestions);
+        schooltest.setgThreshold(50);
+        schooltest.setVgThreshold(50);
         schooltest.setTestTime(5);
         
         return schooltest;
@@ -454,6 +456,8 @@ public class MakeTest {
         schooltest.setId(2);
         schooltest.setName("Test 2");
         schooltest.setQuestions(listOfQuestions);
+        schooltest.setgThreshold(50);
+        schooltest.setVgThreshold(50);
         schooltest.setTestTime(30);
         
         return schooltest;

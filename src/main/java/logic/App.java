@@ -19,7 +19,7 @@ import java.util.List;
  * Created by Johan Lindström (jolindse@hotmail.com) on 2016-03-11.
  */
 public class App extends Application{
-
+	private SelectExam selectEx;
 	private SchoolTest currTest;
 	private CommandHandler ch;
 	private LoginBox loginBox;
@@ -31,8 +31,6 @@ public class App extends Application{
 	public static void main(String[] args) {
 		launch(args);
 	}
-
-
 	/**
 	 * Inits the network loop and commandhandler.
 	 *
@@ -41,7 +39,7 @@ public class App extends Application{
 	@Override
 	public void init() throws Exception {
 		super.init();
-		NetworkConnection nc = new NetworkConnection("127.0.0.1",3004);
+		NetworkConnection nc = new NetworkConnection("localhost",3004);
 		ch = new CommandHandler(this);
 		nc.setCommandHandler(ch);
 		Thread networkThread = new Thread(nc);
@@ -61,10 +59,8 @@ public class App extends Application{
 		this.primaryStage = primaryStage;
 		loginBox = new LoginBox(this);
 		loginBox.showAndWait();
-		
 
 	}
-
 	/**
 	 * Should send the list of available tests to the selectexam routine.
 	 *

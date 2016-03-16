@@ -111,12 +111,12 @@ public class MainWindow extends Application {
 		
 	FlowPane rootFlow = new FlowPane(Orientation.VERTICAL, 10, 10);
         
-        ///////added
+        
         int initListIterator = 0;
         List<Answer> answerlist;
 	
-	public void setMakeTest(SchoolTest y) {
-		this.st = y;
+	public void setTest(SchoolTest schooltest) {
+		this.st = schooltest;
 		
 	}
 		
@@ -274,6 +274,7 @@ public class MainWindow extends Application {
 	  		public void handle (ActionEvent ae) {
 	  			SubmittedTest subTest = new SubmittedTest();
 	  			//Ready to send to Server.
+	  		
 	  			subTest.setTestId(testID);;
   				subTest.setAnswersSubmited(listAS);
 	  			for (AnswerSubmited answerSave:listAS) {
