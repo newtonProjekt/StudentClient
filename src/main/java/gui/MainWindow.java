@@ -38,6 +38,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.App;
@@ -258,12 +259,12 @@ public class MainWindow extends Application {
 																
 		// Create button: "LÄMNA IN PROV"
 		btnInlamning = new Button("Lämna in prov");
-		btnInlamning.setFont(new Font("Arial, bold",20));
+		//btnInlamning.setFont(new Font("Arial",20));
 		bordertop.setRight(btnInlamning);
 		btnInlamning.setDisable(true);
 		
 		//
-		lblFragaNr.setFont(new Font("Arial, bold",20));
+		//lblFragaNr.setFont(new Font("Arial",20));
 
 		//BUTTON:"LÄMNA IN PROV".
 		btnInlamning.setOnAction(new EventHandler<ActionEvent>() {
@@ -504,7 +505,7 @@ public class MainWindow extends Application {
 
 		// Create a label for "Tid kvar");
 		lblTid = new Label ("");
-		lblTid.setFont(new Font("Arial, bold", 20));
+		//lblTid.setFont(new Font("Arial", 20));
 		borderbottom.setMargin(lblTid, new Insets(12,12,12,12));
 		borderbottom.setCenter(lblTid);
 										
