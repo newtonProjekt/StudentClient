@@ -3,6 +3,7 @@ package gui;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import beans.Answer;
 import beans.AnswerSubmited;
 import beans.MakeTest;
@@ -37,7 +38,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.App;
@@ -82,7 +82,7 @@ public class MainWindow extends Application {
 	
 	// Stores the questions in a list applied in showQuestionType() and initAnswerSubList().
 	List<Question> questionList;
-		
+
 	//Create a list of AnswerSubmitted.
 	List<AnswerSubmited> listAS = new ArrayList<>();
 	
@@ -99,7 +99,7 @@ public class MainWindow extends Application {
 	String svar;
 	
 	Timeline timeline;
-		
+
 	// Displays how much time is left.
 	Label lblTid;
 	int testTime =0;
@@ -123,11 +123,11 @@ public class MainWindow extends Application {
          
                 for(int y = 0 ; y<questionList.size() ; y++){
                     AnswerSubmited as = new AnswerSubmited();
-                    as.setAnswerString("");                    
+                    as.setAnswerString("");
                     listAS.add(as);
-                }              
+                }
         }
-       
+
         // Applies the Timeline's methods in order to display the remaining exam-time once the exam has begun.
         public void countdown() {
         	 timeline = new Timeline();
@@ -153,7 +153,7 @@ public class MainWindow extends Application {
                                      }
                                      if (testTime <= 0) {
                                          timeline.stop();
-                                         System.out.println("Tiden �r slut");
+                                         System.out.println("Tiden är slut");
                                          btnNasta.setDisable(true);
                                     	 btnForra.setDisable(true);
                                     	 tidVarning.setText("Nu är provtiden slut. Vänligen lämna in provet "
@@ -184,17 +184,17 @@ public class MainWindow extends Application {
 				testID=st.getId();						
 				questionList = new ArrayList<>();
                                 
-                                
+
 				answerlist = new ArrayList<Answer>();
 				questionList=st.getQuestions();
 				nrOfQuestions=questionList.size();
 				q=questionList.get(currentQuestionNr-1);
 				questionText.setText(q.getQuestionText());
 				rootFlow.getChildren().add(questionText);
-                                                               
+
                                 if(initListIterator==0){
                                     initAnswerSubList();
-                                    testTime = st.getTestTime()*60;	                                   
+                                    testTime = st.getTestTime()*60;
                                 }
                                 
 				if (q.isMultiQuestion()== true) {
@@ -203,7 +203,7 @@ public class MainWindow extends Application {
 					for (int x=0; x<answerlist.size();x++) {
 						index2 = x;						
 						cb[x]=new CheckBox(answerlist.get(x).getAnswerText());
-						rootFlow.getChildren().add(cb[x]);                                                                                                                                            
+						rootFlow.getChildren().add(cb[x]);
 						cb[x].setOnAction(new EventHandler<ActionEvent>() {
 						public void handle (ActionEvent ae) {
 							for(int b=0; b<cb.length;b++) {
@@ -262,9 +262,9 @@ public class MainWindow extends Application {
 		bordertop.setRight(btnInlamning);
 		btnInlamning.setDisable(true);
 		
-		// 
+		//
 		lblFragaNr.setFont(new Font("Arial, bold",20));
-		
+
 		//BUTTON:"LÄMNA IN PROV".
 		btnInlamning.setOnAction(new EventHandler<ActionEvent>() {
 	  		public void handle (ActionEvent ae) {
@@ -277,7 +277,9 @@ public class MainWindow extends Application {
   				app.initNetwork();
   				app.doLogin(app.getPersNr(), app.getPassword());
   				app.getCh().send("submit", subTest);
-  				
+  				app.closeProgram();
+
+  				/*
 	  			rootFlow.getChildren().clear();
 	  			btnNasta.setDisable(true);
 	  			btnForra.setDisable(true);
@@ -285,7 +287,8 @@ public class MainWindow extends Application {
 	  			lblTid.setText("");
 	  			lblFragaNr.setText("");
 	  			btnInlamning.setDisable(true);
-	  			primaryStage.close();
+
+	  			primaryStage.close();*/
 	  			
 	  				}
 		});
@@ -300,31 +303,51 @@ public class MainWindow extends Application {
 	  		public void handle (ActionEvent ae) {
 	  			//Show the next exam-question	  			
 	  			{	questionList=st.getQuestions();
-	  				for(int i=0; i<cb.length;i++) {                                                                                                                            
+
+	  				if(cb!=null){
+	  				for(int i=0; i<cb.length;i++) {
+                                            
+                                           
+                                            
 	  					if(questionList.get(currentQuestionNr-1).isMultiQuestion()) {
 	  						if(cb[i].isSelected()) {
 	  		  					AnswerSubmited as = new AnswerSubmited();
 	  		  					as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
 	  		  					as.setAnswerString(cb[i].getText());
-	  		  					as.setId(currentQuestionNr);                                                              
+	  		  					as.setId(currentQuestionNr);
+                                                                /////added
 	  		  					listAS.set(currentQuestionNr-1,as);                                                                
 	  		  				}                                                       
                                                         else{                                                                
                                                         }
 	  					}
 	  					else {
-                                                        
+                                                        ////Added if
                                                         if(currentQuestionNr!=nrOfQuestions+1) {
                                                             AnswerSubmited as = new AnswerSubmited();
                                                             as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
                                                             as.setAnswerString(txtAnswer.getText());
                                                             as.setId(currentQuestionNr);
+                                                            ////Added
                                                             listAS.set(currentQuestionNr-1,as);
                                                             break;	
                                                             }
 	  					}	  						  				
+	  				}}
+	  				else{
+	  					if(currentQuestionNr!=nrOfQuestions+1) {
+                            AnswerSubmited as = new AnswerSubmited();
+                            as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
+                            as.setAnswerString(txtAnswer.getText());
+                            as.setId(currentQuestionNr);
+                            ////Added
+                            listAS.set(currentQuestionNr-1,as);
+
+                            }
 	  				}
-                                                                          
+
+
+                                        /////added 
                                         if(questionList.get(currentQuestionNr-1).isMultiQuestion()) {
                                         boolean cbMarked = false;
                                         for(int d = 0 ; d<cb.length ; d++){
@@ -341,9 +364,9 @@ public class MainWindow extends Application {
                                             as.setId(currentQuestionNr);
                                             listAS.set(currentQuestionNr-1,as);
                                         }
-                                        }                                       
+                                        }
 	  				rootFlow.getChildren().clear();
-	  				currentQuestionNr++;	  				
+	  				currentQuestionNr++;
 	  				if(currentQuestionNr==nrOfQuestions+1) {
 	  					btnNasta.setDisable(true);
 	  					lblFragaNr.setText("Sista sidan");
@@ -359,11 +382,11 @@ public class MainWindow extends Application {
 	  				}
 	  				else{
 	  					showQuestionType();
-                                                
+
                                         if(questionList.get(currentQuestionNr-1).isMultiQuestion()) {
-                                            for(int y = 0 ; y<answerlist.size() ; y++){                                               
+                                            for(int y = 0 ; y<answerlist.size() ; y++){
                                                 if(listAS.get(currentQuestionNr-1).getAnswerString().equals(answerlist.get(y).getAnswerText())){
-                                                    cb[y].setSelected(true);                                                             
+                                                    cb[y].setSelected(true);
                                                }
                                            }
                                         }
@@ -377,7 +400,7 @@ public class MainWindow extends Application {
                                                 txtAnswer.setText(listAS.get(currentQuestionNr-1).getAnswerString());
                                             }
                                             }
-                                        }                                                
+                                        }
 		  				lblFragaNr.setText("Fråga " + (currentQuestionNr)  + "/" + nrOfQuestions);
 	  				}
 	  				btnForra.setDisable(false);                                       
@@ -397,6 +420,7 @@ public class MainWindow extends Application {
 	  		public void handle (ActionEvent ae) {
 	  			
 	  			{	  	
+                                        ////added
                                         if(currentQuestionNr!=nrOfQuestions+1) {
                                         questionList=st.getQuestions();
 	  				for(int i=0; i<cb.length;i++) {
@@ -406,7 +430,7 @@ public class MainWindow extends Application {
 	  		  					AnswerSubmited as = new AnswerSubmited();
 	  		  					as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
 	  		  					as.setAnswerString(cb[i].getText());
-	  		  					as.setId(currentQuestionNr);                                                              
+	  		  					as.setId(currentQuestionNr);
 	  		  					listAS.set(currentQuestionNr-1,as);
                                                                 
 	  		  				}
@@ -420,13 +444,13 @@ public class MainWindow extends Application {
                                                             AnswerSubmited as = new AnswerSubmited();
                                                             as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
                                                             as.setAnswerString(txtAnswer.getText());
-                                                            as.setId(currentQuestionNr);                                                           
+                                                            as.setId(currentQuestionNr);
                                                             listAS.set(currentQuestionNr-1,as);
                                                             break;	
                                                             }
 	  					}	  						  				
 	  				}
-                                        }                                                                               
+                                        }
                                         if (currentQuestionNr!=nrOfQuestions+1){
                                         if((questionList.get(currentQuestionNr-1).isMultiQuestion()) ) {
                                         boolean cbMarked = false;
@@ -445,7 +469,7 @@ public class MainWindow extends Application {
                                             listAS.set(currentQuestionNr-1,as);
                                         }
                                         }
-                                        }                                                                              
+                                        }
 	  				rootFlow.getChildren().clear();
 	  				currentQuestionNr--;
 	  				showQuestionType();
@@ -455,11 +479,11 @@ public class MainWindow extends Application {
 	  					btnForra.setDisable(true);
 	  				}
 	  				btnNasta.setDisable(false);
-	  				btnInlamning.setDisable(true);                                                                               
+	  				btnInlamning.setDisable(true);
                                         if(questionList.get(currentQuestionNr-1).isMultiQuestion()) {
-                                            for(int y = 0 ; y<cb.length ; y++){                                                                                                
+                                            for(int y = 0 ; y<cb.length ; y++){
                                                 if(listAS.get(currentQuestionNr-1).getAnswerString().equals(answerlist.get(y).getAnswerText())){
-                                                    cb[y].setSelected(true);                                                    
+                                                    cb[y].setSelected(true);
                                                 }
                                             }
                                         }
@@ -477,7 +501,7 @@ public class MainWindow extends Application {
                                         }
 	  			}
 	  	  		});
-		
+
 		// Create a label for "Tid kvar");
 		lblTid = new Label ("");
 		lblTid.setFont(new Font("Arial, bold", 20));
@@ -488,7 +512,7 @@ public class MainWindow extends Application {
 		primaryStage.setScene(scene3);
 		primaryStage.show();	
 		}
-				
+
 	public static void main(String[] args) {
         Application.launch(args);
     }

@@ -60,10 +60,10 @@ public class SelectExam extends Application {
 		
 		BorderPane rootborder = new BorderPane();
 		FlowPane rootFlow = new FlowPane(Orientation.VERTICAL, 10, 10);
-				
+
 		// Give the stage a title.
 		primaryStage.setTitle("Newtons prov");
-				
+
 		// Create a scene.
 		Scene scene2 = new Scene(rootborder, 1000,800, Color.WHITE);
 		//primaryStage.setFullScreen(true);
@@ -146,8 +146,13 @@ public class SelectExam extends Application {
 		
 		for(int x = 0 ; x < testList.size(); x++){
 			
-			//System.out.println(testList.get(x).getName());
+			//items.add(testList.get(x).getName());
+			if(testList.get(x) == null){
+
+			}
+			else{
 			items.add(testList.get(x).getName());
+			}
 		}
 		listview.setItems(items);
 		//listview.setPrefHeight(items.size());
@@ -159,7 +164,7 @@ public class SelectExam extends Application {
 		btnAvbryt.setTranslateX(500);
 		btnAvbryt.setTranslateY(350);
 		
-		Button btnValj = new Button("V�lj Prov");
+		Button btnValj = new Button("Välj prov");
 		btnValj.setTranslateX(500);
 		btnValj.setTranslateY(300);
 		
