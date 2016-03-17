@@ -63,11 +63,9 @@ public void start (Stage primaryStage)  {
 			}
 			
 		}
-		String info = "Testnamn: " + schooltest.getName() + "\nMax G-poäng: " + maxGpoang + 
-				"\nMax VG-poäng: " + maxVGpoang + "\nPoäng för G: " +
-				schooltest.getgThreshold() + " % av max G-poäng" + "\nPoäng för VG: " + 
-				schooltest.getVgThreshold() + " % av max VG-poäng" +
-				"\nTid för testet: " + schooltest.getTestTime() + " minuter";
+		String info = "Testnamn: " + schooltest.getName() + "\nMax G-poÃ¤ng: " + maxGpoang + 
+				"\nMax VG-poÃ¤ng: " + maxVGpoang +   
+				"\nTid fÃ¶r testet: " + schooltest.getTestTime() + " minuter";
 		txtInfo.setText(info);
 		
 				
@@ -88,8 +86,9 @@ public void start (Stage primaryStage)  {
   			  mw.start(stage);
   			  mw.showQuestionType();
   			  mw.countdown();
+  			  app.getCh().send("starttest", schooltest.getId());
   			  app.dropClient();
-  			  //app.getCH().send("starttest", schooltest.getId());
+  			  
   			
   		}
   		});

@@ -159,11 +159,11 @@ public class MainWindow extends Application {
                                      }
                                      if (testTime <= 0) {
                                          timeline.stop();
-                                         System.out.println("Tiden är slut");
+                                         System.out.println("Tiden Ã¤r slut");
                                          btnNasta.setDisable(true);
                                     	 btnForra.setDisable(true);
-                                    	 tidVarning.setText("Nu är provtiden slut. Vänligen lämna in provet "
-                                    	 		+ "genom att klicka på Lämna in prov till höger");
+                                    	 tidVarning.setText("Nu Ã¤r provtiden slut. VÃ¤nligen lÃ¤mna in provet "
+                                    	 		+ "genom att klicka pÃ¥ LÃ¤mna in prov till hÃ¶ger");
                                     	 questionText.setText("");
                                     	 lblFragaNr.setText("");
                                     	 rootFlow.getChildren().clear();
@@ -235,7 +235,7 @@ public class MainWindow extends Application {
 					txtAnswer = new TextArea();
 					rootFlow.getChildren().add(txtAnswer);
 				}
-				lblFragaNr = new Label("Fråga " + (currentQuestionNr)  + "/" + questionList.size());
+				lblFragaNr = new Label("FrÃ¥ga " + (currentQuestionNr)  + "/" + questionList.size());
 				bordertop.setMargin(lblFragaNr,new Insets (12,12,12,12));
 				bordertop.setLeft(lblFragaNr);
                                                               
@@ -267,12 +267,12 @@ public class MainWindow extends Application {
 		rootFlow.setAlignment(Pos.CENTER);
 		rootborder.setCenter(rootFlow);
 																
-		// Create button: "Lämna in prov"
-		btnInlamning = new Button("Lämna in prov");
+		// Create button: "Lï¿½mna in prov"
+		btnInlamning = new Button("LÃ¤mna in prov");
 		bordertop.setRight(btnInlamning);
 		btnInlamning.setDisable(true);
 		
-		//BUTTON:"LÄMNA IN PROV".
+		//BUTTON:"LÃ„MNA IN PROV".
 		btnInlamning.setOnAction(new EventHandler<ActionEvent>() {
 	  		public void handle (ActionEvent ae) {
 	  			SubmittedTest subTest = new SubmittedTest();
@@ -284,7 +284,9 @@ public class MainWindow extends Application {
   				app.initNetwork();
   				app.doLogin(app.getPersNr(), app.getPassword());
   				app.getCh().send("submit", subTest);
+  				app.closeProgram();
   				
+  				/*
 	  			rootFlow.getChildren().clear();
 	  			btnNasta.setDisable(true);
 	  			btnForra.setDisable(true);
@@ -292,13 +294,14 @@ public class MainWindow extends Application {
 	  			lblTid.setText("");
 	  			lblFragaNr.setText("");
 	  			btnInlamning.setDisable(true);
-	  			primaryStage.close();
+	  			
+	  			primaryStage.close();*/
 	  			
 	  				}
 		});
 				
-		// BUTTON: "NÄSTA".
-		btnNasta = new Button ("Nästa");
+		// BUTTON: "Nï¿½STA".
+		btnNasta = new Button ("NÃ¤sta");
 		borderbottom.setMargin(btnNasta, new Insets(12,12,12,12));
 		borderbottom.setRight(btnNasta);
 		
@@ -307,6 +310,8 @@ public class MainWindow extends Application {
 	  		public void handle (ActionEvent ae) {
 	  			//Show the next exam-question	  			
 	  			{	questionList=st.getQuestions();
+	  			
+	  				if(cb!=null){
 	  				for(int i=0; i<cb.length;i++) {
                                             
                                            
@@ -335,7 +340,19 @@ public class MainWindow extends Application {
                                                             break;	
                                                             }
 	  					}	  						  				
+	  				}}
+	  				else{
+	  					if(currentQuestionNr!=nrOfQuestions+1) {
+                            AnswerSubmited as = new AnswerSubmited();
+                            as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
+                            as.setAnswerString(txtAnswer.getText());
+                            as.setId(currentQuestionNr);
+                            ////Added
+                            listAS.set(currentQuestionNr-1,as);
+                            	
+                            }
 	  				}
+	  				
                                         
                                         /////added 
                                         if(questionList.get(currentQuestionNr-1).isMultiQuestion()) {
@@ -401,7 +418,7 @@ public class MainWindow extends Application {
                                         }
                                         ////end of added
                                                 
-		  				lblFragaNr.setText("Fråga " + (currentQuestionNr)  + "/" + nrOfQuestions);
+		  				lblFragaNr.setText("Frï¿½ga " + (currentQuestionNr)  + "/" + nrOfQuestions);
 	  				}
 	  				btnForra.setDisable(false);                                       
                                         
@@ -481,7 +498,7 @@ public class MainWindow extends Application {
 	  				currentQuestionNr--;
 	  				showQuestionType();
                                                                                
-	  				lblFragaNr.setText("Fråga " + (currentQuestionNr)  + "/" + nrOfQuestions);
+	  				lblFragaNr.setText("FrÃ¥ga " + (currentQuestionNr)  + "/" + nrOfQuestions);
 	  				if(currentQuestionNr==1) {
 	  					btnForra.setDisable(true);
 	  				}

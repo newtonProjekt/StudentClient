@@ -40,7 +40,7 @@ public class MakeTest {
         q1.setAnswers(list);
         
         Question q2 = new Question();
-        q2.setQuestionText("Världens högsta berg?");
+        q2.setQuestionText("VÃ¤rldens hÃ¶gsta berg?");
         q2.setPoints(2);
         q2.setVgQuestion(true);
         q2.setMultiQuestion(true);
@@ -60,7 +60,7 @@ public class MakeTest {
         q2.setAnswers(list2);
         
         Question q3 = new Question();
-        q3.setQuestionText("Världens folkrikaste land?");
+        q3.setQuestionText("VÃ¤rldens folkrikaste land?");
         q3.setMultiQuestion(false);
         q3.setPoints(1);
         q3.setVgQuestion(false);
@@ -89,7 +89,7 @@ public class MakeTest {
         SchoolTest schooltest = new SchoolTest();
         
         Question q1 = new Question();
-        q1.setQuestionText("Vad är huvudstaden i Italien?");
+        q1.setQuestionText("Vad Ã¤r huvudstaden i Italien?");
         q1.setPoints(1);
         q1.setVgQuestion(false);
         q1.setMultiQuestion(true);
@@ -113,7 +113,7 @@ public class MakeTest {
         q1.setAnswers(list1);
         
         Question q2 = new Question();
-        q2.setQuestionText("Världens högsta berg?");
+        q2.setQuestionText("VÃ¤rldens hÃ¶gsta berg?");
         q2.setPoints(2);
         q2.setVgQuestion(true);
         q2.setMultiQuestion(true);
@@ -133,18 +133,14 @@ public class MakeTest {
         q2.setAnswers(list2);
         
         Question q3 = new Question();
-        q3.setQuestionText("Vad heter världens största sjö?");
+        q3.setQuestionText("Vad heter vÃ¤rldens stÃ¶rsta sjÃ¶?");
         q3.setMultiQuestion(false);
         q3.setPoints(2);
         q3.setVgQuestion(true);
-        //Answer a8 = new Answer();
-        //a8.setAnswerText("kaspiska havet");
-        //List<Answer> list3 = new ArrayList<Answer>();
-        //list3.add(a8);
-        //q3.setAnswers(list3);
+        
         
         Question q4 = new Question();
-        q4.setQuestionText("Vilken är måttenheten för energi?");
+        q4.setQuestionText("Vilken Ã¤r mÃ¥ttenheten fÃ¶r energi?");
         q4.setPoints(2);
         q4.setVgQuestion(false);
         q4.setMultiQuestion(true);
@@ -164,7 +160,7 @@ public class MakeTest {
         q4.setAnswers(list4);
         
         Question q5 = new Question();
-        q5.setQuestionText("Vad kallas den flytande stenmassa som strömmar ut ur en vulkan vid ett utbrott?");
+        q5.setQuestionText("Vad kallas den flytande stenmassa som strÃ¶mmar ut ur en vulkan vid ett utbrott?");
         q5.setPoints(1);
         q5.setVgQuestion(false);
         q5.setMultiQuestion(true);
@@ -184,7 +180,7 @@ public class MakeTest {
         q5.setAnswers(list5);
         
         Question q6 = new Question();
-        q6.setQuestionText("Vad kallar man ett stort snöskred med ett annat ord?");
+        q6.setQuestionText("Vad kallar man ett stort snÃ¶skred med ett annat ord?");
         q6.setPoints(1);
         q6.setVgQuestion(false);
         q6.setMultiQuestion(true);
@@ -204,7 +200,7 @@ public class MakeTest {
         q6.setAnswers(list6);
         
         Question q7 = new Question();
-        q7.setQuestionText("Vad kallas de elektriska urladdningar som förekommer i samband med åskväder?");
+        q7.setQuestionText("Vad kallas de elektriska urladdningar som fÃ¶rekommer i samband med Ã¥skvÃ¤der?");
         q7.setPoints(1);
         q7.setVgQuestion(false);
         q7.setMultiQuestion(true);
@@ -224,7 +220,7 @@ public class MakeTest {
         q7.setAnswers(list7);
         
         Question q8 = new Question();
-        q8.setQuestionText("Vad kallas en person, som studerar väderförhållanden och förutsäger vädret?");
+        q8.setQuestionText("Vad kallas en person, som studerar vÃ¤derfÃ¶rhÃ¥llanden och fÃ¶rutsÃ¤ger vÃ¤dret?");
         q8.setPoints(1);
         q8.setVgQuestion(false);
         q8.setMultiQuestion(true);
@@ -244,7 +240,7 @@ public class MakeTest {
         q8.setAnswers(list8);
         
         Question q9 = new Question();
-        q9.setQuestionText("Hur stor del av jordens yta är täckt av vatten?");
+        q9.setQuestionText("Hur stor del av jordens yta Ã¤r tÃ¤ckt av vatten?");
         q9.setPoints(2);
         q9.setVgQuestion(true);
         q9.setMultiQuestion(true);
@@ -264,13 +260,13 @@ public class MakeTest {
         q9.setAnswers(list9);
         
         Question q10 = new Question();
-        q10.setQuestionText("Världens folkrikaste land?");
+        q10.setQuestionText("VÃ¤rldens folkrikaste land?");
         q10.setMultiQuestion(false);
         q10.setPoints(1);
         q10.setVgQuestion(false);
         
         Question q11 = new Question();
-        q11.setQuestionText("Vad kallas den linje som går från norr till söder på jorden, och som går genom staden Greenwich i utkanten av London?");
+        q11.setQuestionText("Vad kallas den linje som gÃ¥r frÃ¥n norr till sÃ¶der pÃ¥ jorden, och som gÃ¥r genom staden Greenwich i utkanten av London?");
         q11.setPoints(2);
         q11.setVgQuestion(false);
         q11.setMultiQuestion(true);
@@ -290,7 +286,7 @@ public class MakeTest {
         q11.setAnswers(list11);
         
         Question q12 = new Question();
-        q12.setQuestionText("Vilket land drabbas med jämna mellanrum av enorma skogsbränder, som breder ut sig över tusentals kvadratkilometer?");
+        q12.setQuestionText("Vilket land drabbas med jÃ¤mna mellanrum av enorma skogsbrÃ¤nder, som breder ut sig Ã¶ver tusentals kvadratkilometer?");
         q12.setPoints(1);
         q12.setVgQuestion(false);
         q12.setMultiQuestion(true);
@@ -310,7 +306,7 @@ public class MakeTest {
         q12.setAnswers(list12);
         
         Question q13 = new Question();
-        q13.setQuestionText("Vad är natriumklorid?");
+        q13.setQuestionText("Vad Ã¤r natriumklorid?");
         q13.setPoints(1);
         q13.setVgQuestion(false);
         q13.setMultiQuestion(true);
@@ -319,7 +315,7 @@ public class MakeTest {
         a34.setAnswerText("detsamma som koksalt");
         a34.setCorrectAnswer(true);
         Answer a35 = new Answer();
-        a35.setAnswerText("ett ofta använt bakpulver");
+        a35.setAnswerText("ett ofta anvÃ¤nt bakpulver");
         a35.setCorrectAnswer(false);
         Answer a36 = new Answer();
         a36.setAnswerText("ett tillsatsmedel till bensin");
@@ -330,7 +326,7 @@ public class MakeTest {
         q13.setAnswers(list13);
         
         Question q14 = new Question();
-        q14.setQuestionText("Vad kallas den fysikaliska lag som säger att en flytande kropp undantränger sin egen vikt i vätska?");
+        q14.setQuestionText("Vad kallas den fysikaliska lag som sÃ¤ger att en flytande kropp undantrÃ¤nger sin egen vikt i vÃ¤tska?");
         q14.setPoints(1);
         q14.setVgQuestion(true);
         q14.setMultiQuestion(true);
@@ -350,7 +346,7 @@ public class MakeTest {
         q14.setAnswers(list14);
         
         Question q15 = new Question();
-        q15.setQuestionText("Vilken är summan av vinklarnas gradtal i en triangel?");
+        q15.setQuestionText("Vilken Ã¤r summan av vinklarnas gradtal i en triangel?");
         q15.setPoints(2);
         q15.setVgQuestion(false);
         q15.setMultiQuestion(true);
@@ -370,20 +366,20 @@ public class MakeTest {
         q15.setAnswers(list15);
         
         Question q16 = new Question();
-        q16.setQuestionText("Hur ändras volymen av vatten, när det fryser till is?");
+        q16.setQuestionText("Huvudstaden i Brasilien?");
         q16.setPoints(2);
         q16.setVgQuestion(false);
         q16.setMultiQuestion(true);
         List<Answer> list16= new ArrayList<Answer>();
         Answer a43 = new Answer();
-        a43.setAnswerText("Den ökar");
-        a43.setCorrectAnswer(true);
+        a43.setAnswerText("Rio de Janeiro");
+        a43.setCorrectAnswer(false);
         Answer a44 = new Answer();
-        a44.setAnswerText("Den minskar");
+        a44.setAnswerText("Sao Paulo");
         a44.setCorrectAnswer(false);
         Answer a45 = new Answer();
-        a45.setAnswerText("Den ändras inte");
-        a45.setCorrectAnswer(false);
+        a45.setAnswerText("Brasilia");
+        a45.setCorrectAnswer(true);
         list16.add(a43);
         list16.add(a44);
         list16.add(a45);
@@ -396,13 +392,13 @@ public class MakeTest {
         q17.setMultiQuestion(true);
         List<Answer> list17= new ArrayList<Answer>();
         Answer a46 = new Answer();
-        a46.setAnswerText("Den är rund");
+        a46.setAnswerText("Den Ã¤r rund");
         a46.setCorrectAnswer(false);
         Answer a47 = new Answer();
-        a47.setAnswerText("Den är femkantig");
+        a47.setAnswerText("Den Ã¤r femkantig");
         a47.setCorrectAnswer(true);
         Answer a48 = new Answer();
-        a48.setAnswerText("Den er sexkantig");
+        a48.setAnswerText("Den Ã¤r sexkantig");
         a48.setCorrectAnswer(false);
         list17.add(a46);
         list17.add(a47);

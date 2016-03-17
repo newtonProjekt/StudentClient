@@ -126,6 +126,11 @@ public class App extends Application {
     	System.out.println("client disconnected!");
     }
     
+    public void closeProgram(){
+    	dropClient();
+    	System.exit(0);
+    }
+    
     public String getPersNr(){
     	return loginName;
     }

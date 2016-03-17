@@ -48,7 +48,7 @@ import javafx.scene.control.ListView;
 public class SelectExam extends Application {
 	
 	//Text of "Vï¿½nligen vï¿½lj ett prov"
-	Text text1 = new Text(450, 200,"Vänligen välj ett prov:");
+	Text text1 = new Text(450, 200,"VÃ¤nligen vÃ¤lj ett prov:");
 	
 	//Textstrï¿½ng som ska lï¿½nkas till uppladdade prov frï¿½n server.
 	//Text text2 = new Text(450,230,"Prov i Desktopapplikationer 1");
@@ -151,8 +151,13 @@ public class SelectExam extends Application {
 		
 		for(int x = 0 ; x < testList.size(); x++){
 			
-			//System.out.println(testList.get(x).getName());
+			//items.add(testList.get(x).getName());
+			if(testList.get(x) == null){
+				
+			}
+			else{
 			items.add(testList.get(x).getName());
+			}
 		}
 		listview.setItems(items);
 		//listview.setPrefHeight(items.size());
@@ -164,7 +169,7 @@ public class SelectExam extends Application {
 		btnAvbryt.setTranslateX(500);
 		btnAvbryt.setTranslateY(350);
 		
-		Button btnValj = new Button("Välj Prov");
+		Button btnValj = new Button("VÃ¤lj prov");
 		btnValj.setTranslateX(500);
 		btnValj.setTranslateY(300);
 		
