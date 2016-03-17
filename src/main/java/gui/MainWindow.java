@@ -59,7 +59,7 @@ public class MainWindow extends Application {
 	int nrOfQuestions = 0;
 	
 	// This object is used to keep track of the testID in showQuestionType() method below.
-	int testID=0;
+	int testID=-1;
 	
 	// index2 object is utilised in the showQuestionType() method to generate relevant 
 	// amount of checkboxes.
@@ -185,7 +185,7 @@ public class MainWindow extends Application {
         
 	// METHOD: showQuestionType(). Create method to display multiple-question type in GUI.
 			public void showQuestionType() {                          
-				//st = mt.initBigTest();
+				
 				testID=st.getId();						
 				questionList = new ArrayList<>();
                                 
@@ -276,7 +276,7 @@ public class MainWindow extends Application {
 	  			SubmittedTest subTest = new SubmittedTest();
 	  			//Ready to send to Server.
 	  		
-	  			subTest.setTestId(testID);;
+	  			subTest.setTestId(testID);
   				subTest.setAnswersSubmited(listAS);
   				
   				app.initNetwork();
@@ -332,6 +332,7 @@ public class MainWindow extends Application {
 	  		  					AnswerSubmited as = new AnswerSubmited();
 	  		  					as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
 	  		  					as.setAnswerString(cb[i].getText());
+	  		  					as.setTestId(testID);
 	  		  					as.setId(currentQuestionNr);
                                                                 /////added
 	  		  					listAS.set(currentQuestionNr-1,as);                                                                
@@ -345,6 +346,7 @@ public class MainWindow extends Application {
                                                             AnswerSubmited as = new AnswerSubmited();
                                                             as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
                                                             as.setAnswerString(txtAnswer.getText());
+                                                            as.setTestId(testID);
                                                             as.setId(currentQuestionNr);
                                                             ////Added
                                                             listAS.set(currentQuestionNr-1,as);
@@ -357,6 +359,7 @@ public class MainWindow extends Application {
                             AnswerSubmited as = new AnswerSubmited();
                             as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
                             as.setAnswerString(txtAnswer.getText());
+                            as.setTestId(testID);
                             as.setId(currentQuestionNr);
                             ////Added
                             listAS.set(currentQuestionNr-1,as);
@@ -379,6 +382,7 @@ public class MainWindow extends Application {
                                             AnswerSubmited as = new AnswerSubmited();
                                             as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
                                             as.setAnswerString("");
+                                            as.setTestId(testID);
                                             as.setId(currentQuestionNr);
                                             listAS.set(currentQuestionNr-1,as);
                                         }
@@ -448,6 +452,7 @@ public class MainWindow extends Application {
 	  		  					AnswerSubmited as = new AnswerSubmited();
 	  		  					as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
 	  		  					as.setAnswerString(cb[i].getText());
+	  		  					as.setTestId(testID);
 	  		  					as.setId(currentQuestionNr);
 	  		  					listAS.set(currentQuestionNr-1,as);
                                                                 
@@ -462,6 +467,7 @@ public class MainWindow extends Application {
                                                             AnswerSubmited as = new AnswerSubmited();
                                                             as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
                                                             as.setAnswerString(txtAnswer.getText());
+                                                            as.setTestId(testID);
                                                             as.setId(currentQuestionNr);
                                                             listAS.set(currentQuestionNr-1,as);
                                                             break;	
@@ -483,6 +489,7 @@ public class MainWindow extends Application {
                                             AnswerSubmited as = new AnswerSubmited();
                                             as.setQuestionId(st.getQuestions().get(currentQuestionNr-1).getId());
                                             as.setAnswerString("");
+                                            as.setTestId(testID);
                                             as.setId(currentQuestionNr);
                                             listAS.set(currentQuestionNr-1,as);
                                         }
