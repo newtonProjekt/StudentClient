@@ -3,6 +3,7 @@ package gui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import beans.Answer;
 import beans.AnswerSubmited;
@@ -28,7 +29,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -278,7 +282,20 @@ public class MainWindow extends Application {
   				app.initNetwork();
   				app.doLogin(app.getPersNr(), app.getPassword());
   				app.getCh().send("submit", subTest);
-  				app.closeProgram();
+  				
+  				primaryStage.close();
+  				
+  				Alert alert = new Alert(AlertType.INFORMATION);
+  				alert.setTitle("Info om Inlämning");
+  				alert.setHeaderText("Prov inlämnad");
+  				alert.setContentText("Ditt prov är nu inlämnad. Feedback kommer!");
+
+  				Optional<ButtonType> result = alert.showAndWait();
+  				if (result.get() == ButtonType.OK){
+  					
+  					app.closeProgram();
+  				} 
+  				
 
   				/*
 	  			rootFlow.getChildren().clear();

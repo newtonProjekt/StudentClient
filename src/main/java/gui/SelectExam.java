@@ -15,8 +15,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
@@ -29,6 +32,8 @@ import logic.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.util.List;
+import java.util.Optional;
+
 import javafx.scene.control.ListView;
 
 
@@ -41,6 +46,8 @@ public class SelectExam extends Application {
 	
 	
 	public SelectExam (Stage primaryStage, List<SchoolTest> testList, App app)  {
+		
+		
 		
 		BorderPane rootborder = new BorderPane();
 		FlowPane rootFlow = new FlowPane(Orientation.VERTICAL, 10, 10);
@@ -93,10 +100,24 @@ public class SelectExam extends Application {
 		for(int x = 0 ; x < testList.size(); x++){
 			
 			if(testList.get(x) == null){
+				if(app.getTestStarted()==false){
+					primaryStage.close();
+					Alert alert = new Alert(AlertType.INFORMATION);
+						alert.setTitle("Info om prov");
+						alert.setHeaderText("Inga tillgängliga prov!");
+						alert.setContentText("Du har inga tillgängliga prov just nu. Vänligen återkom senare.");
 
+						Optional<ButtonType> result = alert.showAndWait();
+						if (result.get() == ButtonType.OK){
+							app.closeProgram();
+						} 
+				}
+				else{
+					primaryStage.close();
+				}
 			}
 			else{
-			items.add(testList.get(x).getName());
+				items.add(testList.get(x).getName());
 			}
 		}
 		listview.setItems(items);
@@ -159,7 +180,7 @@ public class SelectExam extends Application {
 		
 		// Set the scene on the stage.
 		primaryStage.setScene(scene2);
-		primaryStage.show();	
+		//primaryStage.show();	
 		
 }
 

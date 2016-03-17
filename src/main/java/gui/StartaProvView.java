@@ -88,19 +88,17 @@ public void start (Stage primaryStage)  {
   			  mw.countdown();
   			  app.getCh().send("starttest", schooltest.getId());
   			  app.dropClient();
-  			  
+  			  app.setTestStarted(true);
   			
   		}
   		});
 				
 		// Set the scene on the stage.
 		primaryStage.setScene(scene3);
-		primaryStage.show();		
+		
 	}
 
-	public static void main(String[] args) {
-        Application.launch(args);
-	}     
+	 
      
 	public void setSchoolTest(SchoolTest schooltest){
 		this.schooltest = schooltest;

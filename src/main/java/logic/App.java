@@ -28,6 +28,7 @@ public class App extends Application {
     private NetworkConnection nc;
 
     private boolean loggedIn = false;
+    private boolean testStarted = false;
 
     public static void main(String[] args) {
         launch(args);
@@ -110,7 +111,10 @@ public class App extends Application {
         currTest = test;
 
     }
-
+    
+    /**
+     * Initializes the networkconnection and starts the newtwork-thread.
+     */
     public void initNetwork() {
         nc = new NetworkConnection("localhost", 3004);
         ch = new CommandHandler(this);
@@ -119,6 +123,10 @@ public class App extends Application {
         networkThread.start();
     }
 
+    /**
+     * sends a disconnect message to server to drop the connection.
+     * disconnects the student
+     */
     public void dropClient(){
     	
     	ch.send("disconnect", "");
@@ -126,6 +134,9 @@ public class App extends Application {
     	System.out.println("client disconnected!");
     }
     
+    /**
+     * calls the dropclient-method and closes the program.
+     */
     public void closeProgram(){
     	dropClient();
     	System.exit(0);
@@ -139,5 +150,14 @@ public class App extends Application {
     }
     public CommandHandler getCh(){
     	return ch;   
-    	}
+    }
+    public boolean getloggedIn(){
+    	return loggedIn;   
+    }
+    public boolean getTestStarted(){
+    	return testStarted;
+    }
+    public void setTestStarted(boolean flag){
+    	testStarted = flag;
+    }
 }
