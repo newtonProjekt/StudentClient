@@ -9,7 +9,6 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -48,7 +47,7 @@ import javafx.scene.control.ListView;
 public class SelectExam extends Application {
 	
 	//Text of "Vï¿½nligen vï¿½lj ett prov"
-	Text text1 = new Text(450, 200,"Vänligen välj ett prov:");
+	Text text1 = new Text(450, 200,"VÃ¤nligen vÃ¤lj ett prov:");
 	
 	//Textstrï¿½ng som ska lï¿½nkas till uppladdade prov frï¿½n server.
 	//Text text2 = new Text(450,230,"Prov i Desktopapplikationer 1");
@@ -61,14 +60,10 @@ public class SelectExam extends Application {
 		
 		BorderPane rootborder = new BorderPane();
 		FlowPane rootFlow = new FlowPane(Orientation.VERTICAL, 10, 10);
-		
-		
-		
-		
+				
 		// Give the stage a title.
 		primaryStage.setTitle("Newtons prov");
-		
-		
+				
 		// Create a scene.
 		Scene scene2 = new Scene(rootborder, 1000,800, Color.WHITE);
 		//primaryStage.setFullScreen(true);
@@ -164,7 +159,7 @@ public class SelectExam extends Application {
 		btnAvbryt.setTranslateX(500);
 		btnAvbryt.setTranslateY(350);
 		
-		Button btnValj = new Button("Välj Prov");
+		Button btnValj = new Button("Vï¿½lj Prov");
 		btnValj.setTranslateX(500);
 		btnValj.setTranslateY(300);
 		
