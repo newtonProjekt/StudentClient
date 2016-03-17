@@ -26,6 +26,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logic.App;
@@ -56,7 +57,7 @@ public class SelectExam extends Application {
 		primaryStage.setTitle("Newtons prov");
 
 		// Create a scene.
-		Scene scene2 = new Scene(rootborder, 1000,800, Color.WHITE);
+		Scene scene2 = new Scene(rootborder, 1300,650, Color.WHITE);
 		primaryStage.setX(0);
 		primaryStage.setY(0);
 		
@@ -64,7 +65,7 @@ public class SelectExam extends Application {
 		//Modified text of Newton, set on the roundRect rectangle as Newton label.
 		Text txtNewton = new Text("Newton");
 		txtNewton.setFill(Color.WHITE);
-		txtNewton.setFont(new Font("Sans-serif, bold",30));
+		txtNewton.setFont(Font.font("Tahoma",FontWeight.NORMAL,30));
 
 		//Create rounded rectangle to set the Newton Label.
 		Rectangle roundRect = new Rectangle();
@@ -125,12 +126,13 @@ public class SelectExam extends Application {
 		listview.setPrefSize(225, 225);
 		listview.setTranslateX(450);
 		listview.setTranslateY(250);
-		btnAvbryt.setTranslateX(500);
-		btnAvbryt.setTranslateY(350);
+		btnAvbryt.setTranslateX(550);
+		btnAvbryt.setTranslateY(217);
 		
 		Button btnValj = new Button("Välj prov");
-		btnValj.setTranslateX(500);
-		btnValj.setTranslateY(300);
+		btnValj.setTranslateX(450);
+		btnValj.setTranslateY(250);
+		btnValj.setMinWidth(20);
 		
 		btnValj.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle (ActionEvent ae){

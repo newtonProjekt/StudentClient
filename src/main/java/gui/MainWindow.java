@@ -37,12 +37,16 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import logic.App;
@@ -251,23 +255,27 @@ public class MainWindow extends Application {
 					
 		primaryStage.setFullScreen(true);
 					
-		// To set buttons and labels to left and right.
+		// To set buttons and labels to left and right. Background color on top and bottom.
 		bordertop = new BorderPane();
 		borderbottom = new BorderPane();
+		bordertop.setBackground(new Background(new BackgroundFill		(Color.LAVENDER,CornerRadii.EMPTY,Insets.EMPTY)));
+		borderbottom.setBackground(new Background(new BackgroundFill		(Color.LAVENDER,CornerRadii.EMPTY,Insets.EMPTY)));
 		rootborder.setTop(bordertop);
 		rootborder.setBottom(borderbottom);
 		
-		// To set lblQuestion1 and checkbox questions in center.
+		// To set lblQuestion1 and checkbox questions in center. Background fill white in rootFlow.
 		rootFlow.setAlignment(Pos.CENTER);
+		rootFlow.setBackground(new Background(new BackgroundFill(Color.WHITE,CornerRadii.EMPTY,Insets.EMPTY)));
 		rootborder.setCenter(rootFlow);
 																
-		// Create button: "LÄMNA IN PROV"
+		// Create button: "LÄMNA IN PROV". The font changed.
 		btnInlamning = new Button("Lämna in prov");
-		//btnInlamning.setFont(new Font("Arial",20));
+		btnInlamning.setFont(Font.font("Tahoma",FontWeight.BOLD,15));
 		bordertop.setRight(btnInlamning);
+		bordertop.setMargin(btnInlamning, new Insets(40,40,40,40));
 		btnInlamning.setDisable(true);
 		
-		//
+		
 		//lblFragaNr.setFont(new Font("Arial",20));
 
 		//BUTTON:"LÄMNA IN PROV".
@@ -306,8 +314,9 @@ public class MainWindow extends Application {
 	  				}
 		});
 				
-		// BUTTON: "NÄSTA".
+		// BUTTON: "NÄSTA". The font changed.
 		btnNasta = new Button ("Nästa");
+		btnNasta.setFont(Font.font("Tahoma",FontWeight.BOLD,10));
 		borderbottom.setMargin(btnNasta, new Insets(12,12,12,12));
 		borderbottom.setRight(btnNasta);
 		
@@ -426,8 +435,9 @@ public class MainWindow extends Application {
 	  			}
 	  	  		});
 		
-		// Create button: "Tillbaka"
+		// Create button: "Tillbaka". The font changed.
 		btnForra = new Button ("Tillbaka");
+		btnForra.setFont(Font.font("Tahoma",FontWeight.BOLD,10));
 		borderbottom.setMargin(btnForra, new Insets(12,12,12,12));
 		borderbottom.setLeft(btnForra);
 		btnForra.setDisable(true);
@@ -522,9 +532,9 @@ public class MainWindow extends Application {
 	  			}
 	  	  		});
 
-		// Create a label for "Tid kvar");
+		// Create a label for "Tid kvar". The font changed.
 		lblTid = new Label ("");
-		//lblTid.setFont(new Font("Arial", 20));
+		lblTid.setFont(Font.font("Tahoma",FontWeight.BOLD,15));
 		borderbottom.setMargin(lblTid, new Insets(12,12,12,12));
 		borderbottom.setCenter(lblTid);
 										

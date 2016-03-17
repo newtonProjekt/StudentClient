@@ -15,9 +15,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import logic.App;
 
@@ -43,10 +49,21 @@ public void start (Stage primaryStage)  {
 		// Give the stage a title.
 		primaryStage.setTitle("Newtons prov");
 		BorderPane rootborder = new BorderPane();
+		// Set background color in the rootborder.		
+		rootborder.setBackground(new Background(new BackgroundFill
+						(Color.LIGHTSALMON, CornerRadii.EMPTY,Insets.EMPTY)));
 		// Create a scene.
 		Scene scene3 = new Scene(rootborder, 750,600, Color.WHITE);
 					
 		primaryStage.setFullScreen(true);
+		
+		// Create Newton text for labelling in the rootborder. Changed the font.
+		Text txtNewton = new Text("Newton");
+		txtNewton.setFont(Font.font("Tahoma",FontWeight.NORMAL,30));
+		txtNewton.setFill(Color.WHITE);
+		txtNewton.setLayoutX(35);
+		txtNewton.setLayoutY(45);
+		rootborder.getChildren().add(txtNewton);
 												
 		BorderPane bordercenter = new BorderPane();
 		// Set the button "Starta prov".
