@@ -378,7 +378,7 @@ public class MainWindow extends Application {
                                             }
                                             }
                                         }                                                
-		  				lblFragaNr.setText("Fr�ga " + (currentQuestionNr)  + "/" + nrOfQuestions);
+		  				lblFragaNr.setText("Fråga " + (currentQuestionNr)  + "/" + nrOfQuestions);
 	  				}
 	  				btnForra.setDisable(false);                                       
                                         
