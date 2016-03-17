@@ -273,28 +273,23 @@ public class MainWindow extends Application {
 		//BUTTON:"LÄMNA IN PROV".
 		btnInlamning.setOnAction(new EventHandler<ActionEvent>() {
 	  		public void handle (ActionEvent ae) {
+	  			
 	  			SubmittedTest subTest = new SubmittedTest();
 	  			//Ready to send to Server.
-	  		
+	  			rootFlow.getChildren().clear();
+	  			
+	  			primaryStage.close();
+	  			
 	  			subTest.setTestId(testID);
   				subTest.setAnswersSubmited(listAS);
   				
   				app.initNetwork();
-  				app.doLogin(app.getPersNr(), app.getPassword());
+  				app.doLogin(app.getPersNr(), app.getPassword(),false);
   				app.getCh().send("submit", subTest);
   				
-  				primaryStage.close();
   				
-  				Alert alert = new Alert(AlertType.INFORMATION);
-  				alert.setTitle("Info om Inlämning");
-  				alert.setHeaderText("Prov inlämnad");
-  				alert.setContentText("Ditt prov är nu inlämnad. Feedback kommer!");
-
-  				Optional<ButtonType> result = alert.showAndWait();
-  				if (result.get() == ButtonType.OK){
-  					
-  					app.closeProgram();
-  				} 
+  				
+  				app.displayDialogBox();
   				
 
   				/*

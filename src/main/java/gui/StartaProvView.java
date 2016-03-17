@@ -31,12 +31,14 @@ public class StartaProvView extends Application {
 		MakeTest mt = new MakeTest();
 		// Create instance of SchoolTest.
 		SchoolTest schooltest = new SchoolTest();
+		//public static Stage stage;
 		
 		App app;
 		// "Start prov" knappen
 		Button btnStart = new Button ("Starta provet");
 			
 public void start (Stage primaryStage)  {
+		
 		
 		// Give the stage a title.
 		primaryStage.setTitle("Newtons prov");
@@ -79,11 +81,11 @@ public void start (Stage primaryStage)  {
   		btnStart.setOnAction(new EventHandler<ActionEvent>() {
   		public void handle (ActionEvent ae) {
   			primaryStage.close();
-  			Stage stage = new Stage();
+  			//Stage stage = new Stage();
   		    // Create instance of the MainWindow.java class
   			  MainWindow mw = new MainWindow();
   			  mw.setTestAndApp(schooltest,app);
-  			  mw.start(stage);
+  			  mw.start(primaryStage);
   			  mw.showQuestionType();
   			  mw.countdown();
   			  app.getCh().send("starttest", schooltest.getId());
@@ -95,7 +97,7 @@ public void start (Stage primaryStage)  {
 				
 		// Set the scene on the stage.
 		primaryStage.setScene(scene3);
-		
+		primaryStage.show();
 	}
 
 	 

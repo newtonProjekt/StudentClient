@@ -89,7 +89,7 @@ public class LoginBox extends Stage {
 
 		// Set action to login button
 		loginButton.setOnAction((e) -> {
-			controller.doLogin(userTextField.getText(), passwordField.getText());
+			controller.doLogin(userTextField.getText(), passwordField.getText(),true);
 		});
 
 		Scene scene = new Scene(grid);

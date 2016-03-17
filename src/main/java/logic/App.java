@@ -6,12 +6,16 @@ import gui.LoginBox;
 import gui.SelectExam;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import network.CommandHandler;
 import network.NetworkConnection;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Application entry class. Starts network and login routines.
@@ -23,12 +27,13 @@ public class App extends Application {
     private SchoolTest currTest;
     private CommandHandler ch;
     private LoginBox loginBox;
-    private Stage primaryStage;
+    private Stage primaryStage ;
     private String loginName, password;
     private NetworkConnection nc;
 
     private boolean loggedIn = false;
     private boolean testStarted = false;
+    private boolean loginFlag = true;
 
     public static void main(String[] args) {
         launch(args);
@@ -65,7 +70,9 @@ public class App extends Application {
 	 */
 	public void showTestBox(List<SchoolTest> availableTests){
 		Platform.runLater(() ->{
-			SelectExam selectGui = new SelectExam(primaryStage, availableTests, this);
+			if(testStarted == false){
+				SelectExam selectGui = new SelectExam(primaryStage, availableTests, this);
+			}
 		});
 	}
 
@@ -79,11 +86,12 @@ public class App extends Application {
      * @param persNumber
      * @param password
      */
-    public void doLogin(String persNumber, String password) {
+    public void doLogin(String persNumber, String password,boolean loginFlag) {
         loginName = persNumber;
         this.password = password;
+        this.loginFlag = loginFlag;
         //if (!loggedIn) {
-            Login currLogin = new Login(loginName, this.password, true);
+            Login currLogin = new Login(loginName, this.password, this.loginFlag);
             ch.send("login", currLogin);
         //}
     }
@@ -95,7 +103,9 @@ public class App extends Application {
         loggedIn = true;
         Platform.runLater(() -> {
             loginBox.close();
-            primaryStage.show();
+            if(testStarted==false){
+            	primaryStage.show();
+            }
         });
 
     }
@@ -132,6 +142,7 @@ public class App extends Application {
     	ch.send("disconnect", "");
     	nc.disconnectServer();
     	System.out.println("client disconnected!");
+    	
     }
     
     /**
@@ -160,4 +171,19 @@ public class App extends Application {
     public void setTestStarted(boolean flag){
     	testStarted = flag;
     }
+    
+    public void displayDialogBox(){
+    	//primaryStage.close();
+    	Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Info om Inlämning");
+			alert.setHeaderText("Prov inlämnad");
+			alert.setContentText("Ditt prov är nu inlämnad. Feedback kommer!");
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == ButtonType.OK){
+				
+				closeProgram();
+			} 
+    }
+    
 }

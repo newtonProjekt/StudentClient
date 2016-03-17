@@ -134,7 +134,7 @@ public class SelectExam extends Application {
 		
 		btnValj.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle (ActionEvent ae){
-				
+				primaryStage.close();
 				System.out.println(listview.getSelectionModel().getSelectedItem());
 				if(listview.getSelectionModel().getSelectedItem()==null){
 					
@@ -188,7 +188,7 @@ public class SelectExam extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-		
+		primaryStage.close();
 	}
 }
 
