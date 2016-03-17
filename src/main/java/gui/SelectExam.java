@@ -1,4 +1,5 @@
 package gui;
+
 /*
  * This SelectExam class illustrates the links of available exams in which logged in
  * students can choose.
@@ -6,28 +7,19 @@ package gui;
 
 import beans.SchoolTest;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MultipleSelectionModel;
-import javafx.scene.control.TableRow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -36,23 +28,15 @@ import javafx.stage.Stage;
 import logic.App;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import javafx.scene.control.ListView;
 
 
 
 public class SelectExam extends Application {
 	
-	//Text of "V�nligen v�lj ett prov"
+	//Text of "Vänligen välj ett prov"
 	Text text1 = new Text(450, 200,"Vänligen välj ett prov:");
-	
-	//Textstr�ng som ska l�nkas till uppladdade prov fr�n server.
-	//Text text2 = new Text(450,230,"Prov i Desktopapplikationer 1");
-	
-	TableRow table1;
 	SchoolTest schooltest = new SchoolTest();
 	
 	
@@ -66,41 +50,10 @@ public class SelectExam extends Application {
 
 		// Create a scene.
 		Scene scene2 = new Scene(rootborder, 1000,800, Color.WHITE);
-		//primaryStage.setFullScreen(true);
 		primaryStage.setX(0);
 		primaryStage.setY(0);
-		//primaryStage.setMaximized(true);
-		
-		/*
-		// Create an ObservableList of entries for the list view.
-		ObservableList<String> examToSelect =
-				FXCollections.observableArrayList(".Net","Databasteknik","Desktopapplikationer");
-		
-		// Create the ListView that displays the items in examToSelect.
-		ListView<String> examTypes = new ListView<String>(examToSelect);
-		
-		// Set the preferred height and width.
-		examTypes.setPrefSize(100, 70);
-		
-		// Get the list view selection model.
-		MultipleSelectionModel<String> lvSelModel = 
-											examTypes.getSelectionModel();
-		
-		// Use a change listener to respond to a change of selection 
-		// within a list view.
-		lvSelModel.selectedItemProperty().addListener(
-										  new ChangeListener<String>() {
-			public void changed(ObservableValue<? extends String> changed,
-										String oldVal, String newVal){
-				// Display the selection model.
-				//responselable.setText("sdfsdf" + newVal);
-			}			
-			});
-		
-		*/
 		
 		// Add the label and list view to the scene graph.
-		
 		//Modified text of Newton, set on the roundRect rectangle as Newton label.
 		Text txtNewton = new Text("Newton");
 		txtNewton.setFill(Color.WHITE);
@@ -126,27 +79,19 @@ public class SelectExam extends Application {
 		//Change Font and text size: text1.
 		text1.setFont(new Font("Arial",20));
 		text1.setFill(Color.BLACK);
-
-		//Change Font and text size: text2.
-		//text2.setFont(new Font("Arial",15));
-		//text2.setFill(Color.ORANGE);
 		
 		// BUTTON: "AVBRYT"
 		Button btnAvbryt = new Button("Avbryt");
-		VBox vbox1 = new VBox();
-		//*vbox1.setPadding(new Insets(3));
-		//vbox1.setMargin(btnAvbryt, new Insets(400,450,450,450));
 		
 		ObservableList data = 
 		        FXCollections.observableArrayList();
 		ListView listview = new ListView(data);
 		ObservableList<String> items =FXCollections.observableArrayList (
 		    );
-		//"Single", "Double", "Suite", "Family App"
+		
 		
 		for(int x = 0 ; x < testList.size(); x++){
 			
-			//items.add(testList.get(x).getName());
 			if(testList.get(x) == null){
 
 			}
@@ -155,9 +100,7 @@ public class SelectExam extends Application {
 			}
 		}
 		listview.setItems(items);
-		//listview.setPrefHeight(items.size());
-		//listview.setPrefSize(20, 30);
-		//rootborder.setCenter(listview);
+		
 		listview.setPrefSize(225, 225);
 		listview.setTranslateX(450);
 		listview.setTranslateY(250);
@@ -185,13 +128,11 @@ public class SelectExam extends Application {
 			}
 		});
 		
-		//vbox1.getChildren().add(listview);
 		rootFlow.getChildren().addAll(listview,btnValj,btnAvbryt);
 		rootborder.setCenter(rootFlow);	
-		//rootborder.setRight(btnAvbryt);
 		
 		
-		
+		//listener for selecting test
 		listview.getSelectionModel().selectedItemProperty().addListener(
 			      new ChangeListener() {
 			     
@@ -204,22 +145,18 @@ public class SelectExam extends Application {
 							schooltest = testList.get(x);
 					}
 					
-					//System.out.println(arg0.getValue());
 					
 				}});
 		
 		
 		btnAvbryt.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle (ActionEvent ae){
-				primaryStage.close();
+				app.closeProgram();
 			}
 		});
 		
 		rootborder.getChildren().addAll(text1);
 		
-		
-		
-				
 		// Set the scene on the stage.
 		primaryStage.setScene(scene2);
 		primaryStage.show();	
@@ -229,27 +166,9 @@ public class SelectExam extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
+		
 		
 	}
 }
 
 
-	
-
-
-
-	/*@Override
-	public void start(Stage arg0) throws Exception {
-		//Stage s = new Stage();
-		List<SchoolTest> testList = new ArrayList<>();
-		SelectExam examselect = new SelectExam(arg0,testList);
-		
-		
-	}
-	public static void main(String[] args) {
-		launch(args);
-	}
-		
-} 
-*/
